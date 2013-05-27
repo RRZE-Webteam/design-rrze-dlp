@@ -1,4 +1,4 @@
-RRZE-DLP Design
+Design RRZE-DLP
 ===============
 
 Wordpress Theme
