@@ -1,0 +1,20 @@
+/**
+ * Projekt Dienstleistungsportal
+ *
+ * Basisstylesheet papka
+ *
+ * @author          RRZE-Team, Natalia Khamatgalimova
+ * @copyright       Copyright 2012, RRZE
+ * @license         CC-A 2.0 (http://creativecommons.org/licenses/by/2.0/)
+ * @link            http://www.vorlagen.uni-erlangen.de
+ * @package         css
+ * @version         1.0
+ * @lastmodified    09/2012
+ */
+
+
+/* import screen layout | Screen-Layout einbinden */
+@import url(screen/layout.css);
+
+
+

@@ -1,0 +1,27 @@
+/**
+ * Projekt Dienstleistungsportal
+ *
+ * Printstylesheet papka
+ *
+ * @author          RRZE-Team, Natalia Khamatgalimova
+ * @copyright       Copyright 2012, RRZE
+ * @license         CC-A 2.0 (http://creativecommons.org/licenses/by/2.0/)
+ * @link            http://www.vorlagen.uni-erlangen.de
+ * @package         css
+ * @version         1.0
+ * @lastmodified    09/2012
+ */
+
+@media print {
+	body {
+		font-size: 10pt;
+		padding: 0 5px;
+	}
+	#suche {
+		display:none;
+	}
+
+	h1,h2,h3,h4,h5,h6 {
+		page-break-after:avoid;
+	}
+}

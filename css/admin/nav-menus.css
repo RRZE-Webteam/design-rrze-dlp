@@ -1,0 +1,20 @@
+/* 
+    Document   : nav-menus
+    Created on : 27.09.2012, 18:07:55
+    Author     : FAUAD\unrz228
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+#nav-menu-theme-description .button-controls {
+    text-align: right;
+}
+
+#nav-menu-theme-description .howto select {
+    width: 100%;
+}
+
+.auto-add-pages {
+    visibility: hidden;
+}
+
