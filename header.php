@@ -80,15 +80,15 @@ foreach( (array) $nav_menus as $key => $_nav_menu ) {
     </head>
     <body <?php body_class(); ?>>
         
-        <div id="wrapper" >
-
-            <div id="header">
-                
-                <div id="title">
-                    <h1 class="site-title">
-                        <a href="" title="Dienstleistungsportfolio" rel="home">Dienstleistungsportfolio</a></h1>
-                    <p class="site-description">des Rechenzentrums</p>
-                </div> 
+         <div id="wrapper" >     
+	    <header>		                                                            
+                             <h1><img src="<?php header_image(); ?>" alt=""> <span><?php bloginfo( 'name' ); ?></span></h1>
+                            <?php                                                     
+                             if (strlen(trim(get_bloginfo( 'description' )))>1) { ?> 
+                            <p class="description slogan"><?php bloginfo( 'description' ); ?></p>
+                            <?php } ?>         
+	    </header>
+                                
                 <div id="breadcrumb">
                     <?php
                     if( is_front_page() || isset( $wp_query->query_vars['menue'] ) ) :
@@ -185,4 +185,3 @@ foreach( (array) $nav_menus as $key => $_nav_menu ) {
                 <?php endif; ?>
                 <?php endif; ?>
                 
-            </div><!-- #header -->

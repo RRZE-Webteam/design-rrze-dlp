@@ -20,12 +20,7 @@
         margin:0;
         padding:0;
         font-family: 'Palatino Linotype','Book Antiqua',Palatino,serif;
-        background: #C4D5E2;
-        background: -moz-repeating-linear-gradient(45deg, #C0D2E0, white 150px, #E8EBED 150px, #C0D2E0 300px);
-        /* background: -moz-radial-gradient(ellipse closest-side, #E8EBED 10%, transparent 10%),
-             -moz-radial-gradient(ellipse closest-side, #E8EBED 30%, #B7C5CE 30%) 50px 50px; */   
-        background-size:10px 10px;
-        background: repeating-linear-gradient(45deg, #C0D2E0, white 150px, #E8EBED 150px, #C0D2E0 300px);
+        background: none repeat scroll 0 0 #2B517D;;
     }
 
 
@@ -37,19 +32,33 @@
     /*Die Seite  */
     #wrapper{
         margin:auto;       
-        width:80%;
-        max-width: 945px;
         min-width: 610px;
-        position: relative;
-        box-shadow: 0 3px 4px rgba(0, 0, 0, 0.4);
-        padding:0 30px 0 30px;
+        padding:0;
         background:#f0f0f0;
         border-bottom: 2em solid #F0F0F0;
+	
+	
+    border-width: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.6);
+    margin: 0 auto;
+    max-width: 1170px;
+    position: relative;
+	
     }
 
     body {
 
     }
+    header h1 {
+	padding: 0;
+	margin: 0;
+    }
+    header h1 span {
+	vertical-align: 10px;	
+	color: #2B517D;
+    }
+
+    
     /*Header*/
     #header {
         margin:0; 
@@ -83,7 +92,7 @@
     #hauptmenu {
         position:relative;            
         width:100%;
-        max-width: 1000px;
+        max-width: 1160px;
         height: 100%;
         z-index:10002;
     }
@@ -175,16 +184,16 @@
     }
 
     .menu-header ul.sub-menu{
-
         font-size:1.5em;
         vertical-align: central;
         font-weight:normal;
-        margin-right: -1em;
-        margin-left:-4em;  
+        margin-right: 0;
+        margin-left: 0;  
+	padding: 0;
     }
     #hauptmenu .menu-header {
         position: relative;
-        width: 100%;
+
 
     }
     #hauptmenu a {
@@ -214,24 +223,20 @@
     }
 
 
-
-
-
     .menu-header ul ul li a {
         box-shadow: 0 3px 4px rgba(0, 0, 0, 0.7);
     }
 
 
     .menu-header ul ul li{
-
-        margin: 0.4em 0.6em 0.4em 0.6em;
+        margin: 0.4em 0.5em 0.4em 0.5em;
 
 
     }
 
     #hauptmenu ul ul a {
-        width:13em;
-        height:8em;
+        width: 14em;
+        height: 8em;
         line-height: 1em;
         font-size: 0.87em;
         -webkit-hyphens: auto;
@@ -438,7 +443,6 @@
     } 
 
     #content{
-        width: 100%;
         position:relative;
         background: #F0F0F0;
         font-family: 'Palatino Linotype','Book Antiqua',Palatino,serif;
@@ -449,7 +453,6 @@
         hyphens: auto;
         padding:10px 15px 10px 15px;
         border-bottom: 5px ridge #3D3D3D;
-        max-width:920px;
     }
 
     #content h1 {
@@ -459,7 +462,6 @@
     #footer {
         background:#3D3D3D;
         color:#fff;
-        width: 100%;
         position:relative;
         font-family: 'Palatino Linotype','Book Antiqua',Palatino,serif;
         font-size: 1em;
@@ -469,9 +471,8 @@
         padding:10px 15px 10px 15px;
         text-rendering: optimizelegibility;
         margin-top:1em;
-        max-width:920px;
         background: #3D3D3D url('rrze-logo.jpg') 0 5px no-repeat;
-        background-size: 950px 400px;
+        background-size: 1170px 400px;
     }
     /* Level 3 */
     #page #hauptmenu ul ul ul li a{
@@ -722,10 +723,11 @@
     } 
 
     div.widget_categories {
-        float: left;
+    /*    float: left;
         margin: 0;
         padding: 0;
         width: 50%;
+	*/
     }
 
     div.widget_meta {

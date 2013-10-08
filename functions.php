@@ -33,6 +33,21 @@ function _rrze_setup() {
 	add_theme_support( 'automatic-feed-links' );
         
     add_theme_support( 'post-thumbnails' );
+    
+      $args = array(
+            'width'         => 154,
+            'height'        => 60,
+            'default-image' => get_template_directory_uri().'/rrze-logo-154x60.gif',
+            'uploads'       => true,
+            'random-default' => false,                      
+            'flex-height' => true,
+            'flex-width' => true,
+	    'header-text'   => false,
+            'max-width' => 350,           
+        );
+       add_theme_support( 'custom-header', $args );
+    
+    
 }
 endif;
 
