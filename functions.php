@@ -524,32 +524,68 @@ function _rrze_add_rewrite_rules( $rules ) {
 function _rrze_the_fields() {
 	global $post, $wpdb;
 	
+	$display_field = array(
+	    'service'			    => 1,
+	    'beschreibung'		    => 1,
+	    'umfang'			    => 1,
+	    'links_zur_dokumentation'	    => 1,
+	    'basisdienstleistungen'	    => 0,
+	    'preis_basisdienstleistungen'   => 0,
+	    'leistungserweiterungen'	    => 0,
+	    'preis_leistungserweiterungen'  => 0,
+	    'kontakt'			    => 1,
+	    'abhaengigkeiten'		    => 0,
+	);
+/*
+ *	Absprache vom 2.10.2013:
+  	    Folgende Abschnitte werden NICHT allgemein angezeigt:
+	    - Basisdienstleistungen
+	    -   Preis Basisdienstleistungen
+	    - Leistungserweiterungen
+	    - Preis Leistungserweiterungen
+	    - Abhängigkeiten
+ */
+
+		
     if ( ! function_exists( 'get_field_object' ) )
         return '';
     
     $post_id = isset( $post->ID ) ? $post->ID : 0;
 
-    $keys = $wpdb->get_col($wpdb->prepare(
+
+     $allkeys = $wpdb->get_col($wpdb->prepare(     
         "SELECT meta_key FROM $wpdb->postmeta WHERE post_id = %d and meta_key NOT LIKE %s",
         $post_id,
         '\_%'
     )); 	
- 	
-	if( ! $keys )
-		return '';
-	
-    $str = '';
-    
-    foreach( $keys as $_key ) {
-        $_field = get_field_object( $_key );
-        if( ! empty( $_field[ 'value' ] ) ) {
-            $str .= sprintf( '<p><b>%s</b></p>', $_field[ 'label' ] );
-            $str .= sprintf( '<p>%s</p>', $_field[ 'value' ] );
-        }
-    }
 
     
-	echo $str;
+	if( ! $allkeys )
+		return '';
+	
+    $str = '';   
+    foreach( $display_field as $_key => $value ) {
+        $_field = get_field_object( $_key );
+
+	if (($value==1) ||
+	    ( is_user_logged_in() && ($value==0))) {
+	    if( ! empty( $_field[ 'value' ] ) ) {
+		$str .= sprintf( '<p><b>%s</b></p>', $_field[ 'label' ] );
+		$str .= sprintf( '<p>%s</p>', $_field[ 'value' ] );
+	    }
+	}
+    }
+     foreach( $allkeys as $_key  ) {
+	if (!isset($display_field[$_key])) {    
+	    $_field = get_field_object( $_key );
+	    if( ! empty( $_field[ 'value' ] ) ) {
+		$str .= sprintf( '<p><b>%s</b></p>', $_field[ 'label' ] );
+		$str .= sprintf( '<p>%s</p>', $_field[ 'value' ] );
+	    }
+	
+	}
+    }
+    echo $str;
 }
 
 function _rrze_wp_tag_cloud( $args = '' ) {
