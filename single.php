@@ -1,56 +1,23 @@
-<?php get_header(); ?>
+<?php
+/**
+ * The Template for displaying all single posts.
+ *
+ * @package RRZE-DLP
+ * @since RRZE-DLP 2.0
+ */
 
-<div id="main">
+get_header(); ?>
 
-    <div id="container">
-        
-        <div id="content" role="main">
-            
-            <?php while( have_posts() ) : the_post(); ?>
+        <div id="primary" class="content-area">
+            <div id="content" class="site-content" role="main">
 
-                <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+            <?php while ( have_posts() ) : the_post(); ?>
 
-                    <header class="entry-header">
-                        <h1><?php the_title(); ?></h1>
-                    </header>
+                <?php get_template_part( 'content', 'single' ); ?>
 
-                    <div class="entry-content">
-                        <?php //the_content( __( 'Weiterlesen <span class="meta-nav">&rarr;</span>', '_rrze' ) ); ?>
-                        <?php _rrze_the_fields(); ?>
-                        <?php //wp_link_pages( array( 'before' => '<nav id="nav-pages"><div class="ym-wbox"><span>' . __( 'Seiten:', '_rrze' ) . '</span>', 'after' => '</div></nav>' ) ); ?>
-                    </div>
-                    
-                    <footer class="entry-meta">
-                        <?php
-                        $utility_text = '';
-                        $menu_list = _rrze_menu_items_list( get_the_ID() );
-                        $categories_list = get_the_category_list(', ');
-                        $tag_list = get_the_tag_list('', ', ');                        
+            <?php endwhile; // end of the loop. ?>
 
-                        if( '' != $menu_list )
-                            $utility_text .= sprintf( _n( 'Diese Seite wurde diesem Menü: %1$s zugeordnet.<br/>', 'Diese Seite wurde diesen Menüs: %1$s zugeordnet.<br/>', count( explode( ', ', $menu_list ) ), '_rrze' ), $menu_list );
-
-                        if( '' != $categories_list )
-                            $utility_text .= sprintf( __( 'Kategorien: %1$s.<br/>', '_rrze' ), $categories_list );
-                                                
-                        if( '' != $tag_list )
-                            $utility_text .= sprintf( __( 'Schlagwörter: %1$s.<br/>', '_rrze' ), $tag_list );
-                        
-                        $utility_text .= sprintf( __( 'Diesen Artikel <a href="%1$s" title="Permalink zu %2$s" rel="bookmark"> zu Ihren Lesezeichen hinzufügen</a>.<br/>', '_rrze' ), esc_url( get_permalink()), the_title_attribute( 'echo=0' ) );
-                        
-                        printf( '%s%s<br/>', $utility_text, _rrze_last_modified_on() );
-                        ?>
-                        <?php edit_post_link( __( 'Bearbeiten', '_rrze' ), '<span class="edit-link">', '</span>' ); ?>
-                    </footer>
-
-                </article>
-
-            <?php endwhile; ?>
-            
-        </div><!-- #content -->
-        
-    </div><!-- #container -->
-
-</div><!-- #main -->
+            </div><!-- #content .site-content -->
+        </div><!-- #primary .content-area -->
 
 <?php get_footer(); ?>

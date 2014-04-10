@@ -1,0 +1,164 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Design RRZE-DLP v2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2014-04-07 15:43:14+0000\n"
+"Last-Translator: zo95zofo <barbara.bothe@fau.de>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: CSL v1.x\n"
+"X-Poedit-Language: German\n"
+"X-Poedit-Country: GERMANY\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;\n"
+"X-Poedit-Basepath: ../\n"
+"X-Poedit-Bookmarks: \n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Textdomain-Support: yes"
+
+#: content.php:10
+#, php-format
+#@ rrze-dlp
+msgid "Permalink to %s"
+msgstr "Permalink zu %s"
+
+#: content.php:25
+#@ rrze-dlp
+msgid "Continue reading <span class=\"meta-nav\">&rarr;</span>"
+msgstr "Weiterlesen <span class=\"meta-nav\">&rarr;</span>"
+
+#: content-single.php:19
+#: content.php:26
+#@ rrze-dlp
+msgid "Pages:"
+msgstr "Seiten:"
+
+#. translators: used between list items, there is a space after the comma
+#: content-single.php:25
+#: content-single.php:28
+#: content.php:34
+#: content.php:44
+#@ rrze-dlp
+msgid ", "
+msgstr ", "
+
+#: content.php:38
+#, php-format
+#@ rrze-dlp
+msgid "Posted in %1$s"
+msgstr "Kategorien:  %1$s"
+
+#: content.php:49
+#, php-format
+#@ rrze-dlp
+msgid "Tagged %1$s"
+msgstr "Schlagwörter: %1$s"
+
+#: content.php:56
+#@ rrze-dlp
+msgid "Leave a comment"
+msgstr "Kommentar schreiben"
+
+#: content.php:56
+#@ rrze-dlp
+msgid "1 Comment"
+msgstr "1 Kommentar"
+
+#: content.php:56
+#@ rrze-dlp
+msgid "% Comments"
+msgstr "% Kommentare"
+
+#: content-single.php:57
+#: content.php:59
+#@ rrze-dlp
+msgid "Edit"
+msgstr "Bearbeiten"
+
+#: functions.php:51
+#@ rrze-dlp
+msgid "Primary Menu"
+msgstr "Hauptmenü"
+
+#: header.php:41
+#, php-format
+#@ rrze-dlp
+msgid "Page %s"
+msgstr "Seite %s"
+
+#: header.php:61
+#@ rrze-dlp
+msgid "Menu"
+msgstr "Menü"
+
+#: header.php:63
+#@ rrze-dlp
+msgid "Skip to content"
+msgstr "Zum Inhalt springen"
+
+#: inc/template-tags.php:24
+#, php-format
+#@ rrze-dlp
+msgid "View all posts by %s"
+msgstr "Alle Beiträge von %s ansehen."
+
+#: no-results.php:14
+#@ rrze-dlp
+msgid "Nothing Found"
+msgstr "Nichts gefunden."
+
+#: no-results.php:20
+#, php-format
+#@ rrze-dlp
+msgid "Ready to publish your first post? <a href=\"%1$s\">Get started here</a>."
+msgstr "Bereit für den ersten Beitrag? <a href=\"%1$s\">Hier geht's los</a>."
+
+#: no-results.php:24
+#@ rrze-dlp
+msgid "Sorry, but nothing matched your search terms. Please try again with some different keywords."
+msgstr "Leider hat die Suche keine Treffer ergeben. Versuchen Sie es erneut mit anderen Suchbegriffen."
+
+#: no-results.php:29
+#@ rrze-dlp
+msgid "It seems we can&rsquo;t find what you&rsquo;re looking for. Perhaps searching can help."
+msgstr "Leider gibt es diesen Inhalt nicht. Versuchen Sie es über die Suche."
+
+#: content-single.php:35
+#, php-format
+#@ rrze-dlp
+msgid "Bookmark the <a href=\"%3$s\" title=\"Permalink to %4$s\" rel=\"bookmark\">permalink</a>."
+msgstr "Lesezeichen zum <a href=\"%3$s\" title=\"Permalink zu %4$s\" rel=\"bookmark\">Permalink</a>"
+
+#: content-single.php:33
+#, php-format
+#@ rrze-dlp
+msgid "Tags: %2$s<br/>Bookmark the <a href=\"%3$s\" title=\"Permalink to %4$s\" rel=\"bookmark\">permalink</a>."
+msgstr "Schlagwörter: %2$s<br/>Lesezeichen zum <a href=\"%3$s\" title=\"Permalink zu %4$s\" rel=\"bookmark\">Permalink</a>"
+
+#: content-single.php:43
+#, php-format
+#@ rrze-dlp
+msgid "Categories: %1$s<br />Bookmark the <a href=\"%3$s\" title=\"Permalink to %4$s\" rel=\"bookmark\">permalink</a>."
+msgstr "Kategorien: %1$s<br />Lesezeichen zum <a href=\"%3$s\" title=\"Permalink zu %4$s\" rel=\"bookmark\">Permalink</a>"
+
+#: content-single.php:41
+#, php-format
+#@ rrze-dlp
+msgid "Categories: %1$s<br />Tags: %2$s<br/>Bookmark the <a href=\"%3$s\" title=\"Permalink to %4$s\" rel=\"bookmark\">permalink</a>."
+msgstr "Kategorien: %1$s<br />Tags: %2$s<br/>Lesezeichen zum <a href=\"%3$s\" title=\"Permalink zu %4$s\" rel=\"bookmark\">Permalink</a>"
+
+#: inc/template-tags.php:18
+#, php-format
+#@ rrze-dlp
+msgid "Modified: <br /><a href=\"%1$s\" title=\"%2$s\" rel=\"bookmark\"><time class=\"entry-date\" datetime=\"%3$s\" pubdate>%4$s</time></a><span class=\"byline\"> by <span class=\"author vcard\"><a class=\"url fn n\" href=\"%5$s\" title=\"%6$s\" rel=\"author\">%7$s</a></span></span>"
+msgstr "<br />Zuletzt bearbeitet am <a href=\"%1$s\" title=\"%2$s\" rel=\"bookmark\"><time class=\"entry-date\" datetime=\"%3$s\" pubdate>%4$s</time></a><span class=\"byline\"> von <span class=\"author vcard\"><a class=\"url fn n\" href=\"%5$s\" title=\"%6$s\" rel=\"author\">%7$s</a></span></span>"
+
+#: inc/template-tags.php:22
+#@ rrze-dlp
+msgid "F j, Y"
+msgstr "j. F Y"
+
