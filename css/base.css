@@ -50,7 +50,7 @@
 
 		/* (en) Standard values for colors and text alignment */
 		/* (de) Vorgabe der Standardfarben und Textausrichtung */
-		background:#fff;
+		background:#ffffff;
 		color:#000;
 		text-align:left; /* LTR */
 	}
@@ -293,7 +293,7 @@
 	.ym-form fieldset { overflow:hidden; }
 
 	.ym-form div { position:relative; }
-	
+
 	.ym-form label,
 	.ym-form .ym-message {
 		position:relative;

@@ -10,7 +10,7 @@ $nav_menu_selected_slug = '';
 $nav_menus = wp_get_nav_menus( array('orderby' => 'term_group') );
 if( ! empty( $nav_menus ) ) {
     $_nav_menu = current( $nav_menus );
-    
+
     $nav_menu_selected_id = $_nav_menu->term_id;
     $nav_menu_selected_slug = $_nav_menu->slug;
 }
@@ -23,9 +23,9 @@ if ( isset( $_REQUEST['menu'] ) ) {
             break;
         }
     }
-    
+
     $_SESSION['nav_menu_selected_id'] = $nav_menu_selected_id;
-    
+
     wp_redirect( home_url( sprintf( '%s', $nav_menu_selected_slug ) ) );
     exit;
 }
@@ -35,20 +35,20 @@ if( isset( $wp_query->query_vars['menue'] ) ) {
         if( $wp_query->query_vars['menue'] == $_nav_menu->slug ) {
 
             $nav_menu_name = $_nav_menu->name;
-            
+
             $nav_menu_selected_id = $_nav_menu->term_id;
             $nav_menu_selected_slug = $_nav_menu->slug;
 
             $_SESSION['nav_menu_selected_id'] = $nav_menu_selected_id;
 
             $items = wp_get_nav_menu_items( $nav_menu_selected_id );
-            
+
             if( ! empty( $wp_query->query_vars['submenue'] ) ) {
                 $nav_path = trim( urldecode( $wp_query->query_vars['submenue'] ) );
                 $nav_path = explode( '/', $nav_path );
                 $nav_post_id = _rrze_path_post_id( $nav_path, $items );
             }
-            
+
             break;
         }
     }
@@ -71,24 +71,25 @@ foreach( (array) $nav_menus as $key => $_nav_menu ) {
 <html <?php language_attributes(); ?>>
     <head>
         <title><?php bloginfo( 'name' ); ?><?php wp_title( '|' ); ?></title>
-        <meta charset="<?php bloginfo( 'charset' ); ?>" />	
+        <meta charset="<?php bloginfo( 'charset' ); ?>" />
         <link rel="profile" href="http://gmpg.org/xfn/11" />
         <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
         <link rel="icon" href="<?php printf( '%s/images/favicon.ico', get_stylesheet_directory_uri() ); ?>" type="image/x-icon" />
         <link rel="shortcut icon" href="<?php printf( '%s/images/favicon.ico', get_stylesheet_directory_uri() ); ?>" type="image/x-icon" />
-        <?php wp_head(); ?>        
+        <?php wp_head(); ?>
     </head>
     <body <?php body_class(); ?>>
-        
-         <div id="wrapper" >     
-	    <header>		                                                            
-                             <h1><img src="<?php header_image(); ?>" alt=""> <span><?php bloginfo( 'name' ); ?></span></h1>
-                            <?php                                                     
-                             if (strlen(trim(get_bloginfo( 'description' )))>1) { ?> 
+
+         <div id="wrapper" >
+	    <header id="header" role="banner">
+                             <img src="<?php header_image(); ?>" alt="">
+							 <h1><?php bloginfo( 'name' ); ?></h1>
+                            <?php
+                             if (strlen(trim(get_bloginfo( 'description' )))>1) { ?>
                             <p class="description slogan"><?php bloginfo( 'description' ); ?></p>
-                            <?php } ?>         
+                            <?php } ?>
 	    </header>
-                                
+
                 <div id="breadcrumb">
                     <?php
                     if( is_front_page() || isset( $wp_query->query_vars['menue'] ) ) :
@@ -97,7 +98,7 @@ foreach( (array) $nav_menus as $key => $_nav_menu ) {
                         echo _rrze_breadcrumb_nav();
                     endif; ?>
                 </div>
-                
+
                 <div id="options">
                     <div id="auswahl">
                         <form id="select-nav-menu" method="post" action="">
@@ -114,7 +115,7 @@ foreach( (array) $nav_menus as $key => $_nav_menu ) {
                                         <option value="<?php echo esc_attr($_nav_menu->term_id) ?>">
                                             <?php echo esc_html( $_nav_menu->truncated_name ); ?>
                                         </option>
-                                    <?php endforeach; ?>                            
+                                    <?php endforeach; ?>
                                 <?php endif; ?>
                             </select>
                             <input type="submit" id="auswahlsubmit" class="hide-if-js" name="submit" value="<?php esc_html_e( 'Auswählen', '_rrze' ); ?>">
@@ -127,7 +128,7 @@ foreach( (array) $nav_menus as $key => $_nav_menu ) {
                             });
                         });
                         /* ]]> */
-                        </script> 
+                        </script>
                     </div>
                     <div id="suche">
                         <h2><a name="suche" class="skip-link"><?php esc_html_e( 'Suche', '_rrze' ); ?></a></h2>
@@ -136,8 +137,8 @@ foreach( (array) $nav_menus as $key => $_nav_menu ) {
                                 <input type="text" value="<?php echo get_search_query(); ?>" placeholder="<?php echo esc_attr__( '', '_rrze' ); ?>" name="s" id="s" />
                                 <input type="submit" id="searchsubmit" value="<?php esc_html_e( 'Suchen', '_rrze' ); ?>" />
                             </div>
-                        </form>          
-                    </div>   
+                        </form>
+                    </div>
                 </div>
 
                 <?php
@@ -145,7 +146,7 @@ foreach( (array) $nav_menus as $key => $_nav_menu ) {
                 $path = implode( '/', $nav_path );
                 if( ! empty( $path) )
                     $path = sprintf( '/%s', $path );
-                
+
                 $menu = wp_get_nav_menu_object( $nav_menu_selected_id );
 
                 $menu_items = wp_get_nav_menu_items( $nav_menu_selected_id );
@@ -153,7 +154,7 @@ foreach( (array) $nav_menus as $key => $_nav_menu ) {
                 if( ! empty( $menu_items ) ) :
                 ?>
                 <div class="nav-button hide-if-no-js">&NestedLessLess; Menü zuklappen &NestedGreaterGreater;</div>
-                
+
                 <div id="hauptmenu" role="navigation">
 
                     <div class="skip-link"><a href="#content" title="Skip to content">Skip to content</a></div>
@@ -184,4 +185,4 @@ foreach( (array) $nav_menus as $key => $_nav_menu ) {
                 </div><!-- #hauptmenu -->
                 <?php endif; ?>
                 <?php endif; ?>
-                
+
