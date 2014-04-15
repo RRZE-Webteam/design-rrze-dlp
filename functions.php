@@ -29,14 +29,10 @@ if ( ! function_exists( 'rrze_dlp_setup' ) ):
  */
 function rrze_dlp_setup() {
 
-    /**
-     * Custom template tags for this theme.
-     */
+    // Custom template tags for this theme.
     require( get_template_directory() . '/inc/template-tags.php' );
 
-    /**
-     * Custom functions that act independently of the theme templates
-     */
+    //Custom functions that act independently of the theme templates
     require( get_template_directory() . '/inc/tweaks.php' );
 
     /**
@@ -47,14 +43,12 @@ function rrze_dlp_setup() {
      */
     load_theme_textdomain( 'rrze-dlp', get_template_directory() . '/languages' );
 
-    /**
-     * This theme uses wp_nav_menu() in one location.
-     */
+    //This theme uses wp_nav_menu() in one location.
     register_nav_menus( array(
         'primary' => __( 'Primary Menu', 'rrze-dlp' ),
     ) );
 }
-endif; // shape_setup
+endif; // rrze_dlp_setup
 add_action( 'after_setup_theme', 'rrze_dlp_setup' );
 
 
@@ -117,6 +111,85 @@ add_filter('excerpt_more', 'new_excerpt_more');
 
 
 /**
+ * Add Meta Boxes
+ */
+
+/* Fire our meta box setup function on the post editor screen. */
+add_action( 'load-post.php', 'rrze_dlp_post_meta_boxes_setup' );
+add_action( 'load-post-new.php', 'rrze_dlp_post_meta_boxes_setup' );
+
+/* Meta box setup function. */
+function rrze_dlp_post_meta_boxes_setup() {
+	/* Add meta boxes on the 'add_meta_boxes' hook. */
+	add_action( 'add_meta_boxes', 'rrze_dlp_add_post_meta_boxes' );
+	/* Save post meta on the 'save_post' hook. */
+	add_action( 'save_post', 'rrze_dlp_save_post_meta_boxes');
+}
+/* Create one or more meta boxes to be displayed on the post editor screen. */
+function rrze_dlp_add_post_meta_boxes() {
+	add_meta_box(
+		'service',			// Unique ID
+		esc_html__( 'Service', 'rrze-dlp' ),		// Title
+		'rrze_dlp_meta_box',		// Callback function
+		'post',					// Admin page (or post type)
+		'normal',					// Context
+		'default'					// Priority
+	);
+}
+
+/* Display the post meta box. */
+function rrze_dlp_meta_box( $object, $box ) { ?>
+	<?php wp_nonce_field( basename( __FILE__ ), 'rrze_dlp_service_nonce' ); ?>
+		<label for="rrze-dlp-service"><?php _e( "Short description of the service provided (1 sentence)", 'example' ); ?></label>
+	<?php wp_editor(get_post_meta( $object->ID, 'service', true ),'wp_editor-service',array( 'textarea_rows' => 3 ));
+ }
+
+/* Save the meta box's post metadata. */
+function rrze_dlp_save_post_meta_boxes( $post_id ) {
+
+	/* Verify the nonce before proceeding. */
+	if ( !isset( $_POST['rrze_dlp_service_nonce'] ) || !wp_verify_nonce( $_POST['rrze_dlp_service_nonce'], basename( __FILE__ ) ) )
+		return;
+
+	/* If this is an autosave, our form has not been submitted, so we don't want to do anything. */
+	if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+		return;
+	}
+
+	/* Check the user's permissions. */
+	if ( ! current_user_can( 'edit_post', $post_id ) ) {
+			return;
+	}
+
+	/* Make sure that it is set. */
+	if ( ! isset( $_POST['wp_editor-service'] ) ) {
+		return;
+	}
+
+	/* Get the meta key. */
+	$meta_key = 'service';
+
+	/* Get the posted data and sanitize it for use as an HTML class. */
+	$new_meta_value = sanitize_text_field($_POST['wp_editor-service']);
+
+	/* Get the meta value of the custom field key. */
+	$meta_value = get_post_meta( $post_id, $meta_key, true );
+
+	/* If a new meta value was added and there was no previous value, add it. */
+	if ( $new_meta_value && '' == $meta_value ) {
+	add_post_meta( $post_id, $meta_key, $new_meta_value, true ); }
+
+	/* If the new meta value does not match the old value, update it. */
+	elseif ( $new_meta_value && $new_meta_value != $meta_value ) {
+	update_post_meta( $post_id, $meta_key, $new_meta_value );}
+
+	/* If there is no new meta value but an old value exists, delete it. */
+	elseif ( '' == $new_meta_value && $meta_value ) {
+	delete_post_meta( $post_id, $meta_key, $meta_value );}
+}
+
+
+/**
  * Render custom fields
  */
 function rrze_dlp_fields() {
@@ -126,7 +199,7 @@ function rrze_dlp_fields() {
 	    'service'			    => 1,
 	    'beschreibung'		    => 1,
 	    'umfang'			    => 1,
-	    'links_zur_dokumentation'	    => 1,
+	    'links_zu_dokumentation'	    => 1,
 	    'basisdienstleistungen'	    => 0,
 	    'preis_basisdienstleistungen'   => 0,
 	    'leistungserweiterungen'	    => 0,
@@ -148,7 +221,7 @@ function rrze_dlp_fields() {
 		'service'			    => 'Service',
 	    'beschreibung'		    => 'Beschreibung',
 	    'umfang'			    => 'Umfang',
-	    'links_zur_dokumentation'	    => 'Links zur Dokumentation',
+	    'links_zu_dokumentation'	    => 'Links zur Dokumentation',
 	    'basisdienstleistungen'	    => 'Basisdienstleistungen',
 	    'preis_basisdienstleistungen'   => 'Preis Basisdienstleistungen',
 	    'leistungserweiterungen'	    => 'Leistungserweiterungen',
