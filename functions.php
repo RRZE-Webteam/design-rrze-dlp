@@ -111,82 +111,162 @@ add_filter('excerpt_more', 'new_excerpt_more');
 
 
 /**
- * Add Meta Boxes
+ * Meta Box
  */
 
-/* Fire our meta box setup function on the post editor screen. */
-add_action( 'load-post.php', 'rrze_dlp_post_meta_boxes_setup' );
-add_action( 'load-post-new.php', 'rrze_dlp_post_meta_boxes_setup' );
-
-/* Meta box setup function. */
-function rrze_dlp_post_meta_boxes_setup() {
-	/* Add meta boxes on the 'add_meta_boxes' hook. */
-	add_action( 'add_meta_boxes', 'rrze_dlp_add_post_meta_boxes' );
-	/* Save post meta on the 'save_post' hook. */
-	add_action( 'save_post', 'rrze_dlp_save_post_meta_boxes');
+// Add the Meta Box
+function add_custom_meta_box() {
+    add_meta_box(
+        'custom_meta_box', // $id
+        'Informationen zur Dienstleistung', // $title
+        'show_custom_meta_box', // $callback
+        'post', // $page
+        'normal', // $context
+        'high'); // $priority
 }
-/* Create one or more meta boxes to be displayed on the post editor screen. */
-function rrze_dlp_add_post_meta_boxes() {
-	add_meta_box(
-		'service',			// Unique ID
-		esc_html__( 'Service', 'rrze-dlp' ),		// Title
-		'rrze_dlp_meta_box',		// Callback function
-		'post',					// Admin page (or post type)
-		'normal',					// Context
-		'default'					// Priority
-	);
+add_action('add_meta_boxes', 'add_custom_meta_box');
+
+//Field Array
+$custom_meta_fields = array(
+    array(
+        'label'=> 'Service',
+        'desc'  => 'Kurzbeschreibung der DL (1 Satz)',
+        'id'    => 'service',
+        'type'  => 'textarea'
+    ),
+	array(
+        'label'=> 'Beschreibung',
+        'desc'  => 'ausführliche, erläuternde Beschreibung der DL (3-10 Sätze) Leitsätze: Wie kann man die DL treffend und umfänglich mit einem Satz beschreiben? Was kann der Kunde damit tun? Welche Voraussetzungen werden an die Nutzung der DL gestellt? Welchen Nutzen zieht der Kunde aus der Benutzung der DL? Jeder Bestandteil der DL ist in einem vollständigen Satz zu formulieren. Der Text ist so formulieren, dass ein technischer Laie es versteht (Layer 8 Kompatibilität!). Fachbegriffe erklären und ins Glossar verlinken. Zuständig für abschließende Formulierung: Redaktion',
+        'id'    => 'beschreibung',
+        'type'  => 'textarea'
+    ),
+	array(
+        'label'=> 'Umfang',
+        'desc'  => 'Was bekommt der Kunde - differenziert nach Standard-Kundengruppen (diese sind definiert unter DLP:Kundengruppen) Für Studierende? Für Beschäftigte? Für Sonstige?',
+        'id'    => 'umfang',
+        'type'  => 'textarea'
+    ),
+	array(
+        'label'=> 'Links zu Dokumentation',
+        'desc'  => 'Hier bitte die Seiten im Wiki verlinken, die den Kunden die Benutzung der DL erläutern. Hier gehören auch Links auf die Dokumentation der zur Erbringung der DL benötigten Server hin! Außerdem die zur Erbringung notwendige Software. Sollte die Software von uns selbst paketiert werden, so bitte auf die entsprechenden Projekte auf dem rembo (Windows) oder OBS (OpenSUSE Build Service, Linux) verlinken. notfalls erstmal Links auf entsprechende RRZE-Webseiten. Diese dann aber bei Zeiten ins RRZE-Wiki überführen!',
+        'id'    => 'links_zu_dokumentation',
+        'type'  => 'textarea'
+    ),
+	array(
+        'label'=> 'Basisdienstleistungen',
+        'desc'  => 'Was ist für die Erbringung dieser DL direkt notwendig - Zuständig: Gruppe/Abteilung bzw. Person - Abteilung - Zuständig: Abteilungen, besser Gruppen - nur bei wirklich sehr personenbezogenen Zuständigkeiten, das Namenskürzel der Person inkl. Angabe der Abteilung',
+        'id'    => 'basisdienstleistungen',
+        'type'  => 'textarea'
+    ),
+	array(
+        'label'=> 'Preis Basisdienstleistungen',
+        'desc'  => '«TODO: sollte hier ein kalkulatorische Preis stehen, wenn die DL für den Nutzer kostenlos ist?»',
+        'id'    => 'preis_basisdienstleistungen',
+        'type'  => 'textarea'
+    ),
+	array(
+        'label'=> 'Leistungserweiterungen',
+        'desc'  => 'Welche Erweiterungen zur DL sind verfügbar? (optional) Zuständig: Gruppe/Abteilung bzw. Person - Abteilung - Zuständig: Abteilungen, besser Gruppen - nur bei wirklich sehr personenbezogenen Zuständigkeiten, das Namenskürzel der Person inkl. Angabe der Abteilung',
+        'id'    => 'leistungserweiterungen',
+        'type'  => 'textarea'
+    ),
+	array(
+        'label'=> 'Preis Leistungserweiterungen',
+        'desc'  => 'Aus WIKI: «TODO: Sollte hier ein kalkulatorischer Preis stehen, wenn die DL für den Nutzer kostenlos ist oder sind Erweiterungen immer kostenpflichtig?»',
+        'id'    => 'preis_leistungserweiterungen',
+        'type'  => 'textarea'
+    ),
+	array(
+        'label'=> 'Kontakt',
+        'desc'  => 'ansonsten: DL-spezifisches Funktionspostfach',
+        'id'    => 'kontakt',
+        'type'  => 'textarea'
+    ),
+	array(
+        'label'=> 'Abhängigkeiten',
+        'desc'  => 'andere DL von denen diese (als Vorbedingung) abhängig ist] Aus WIKI: «TODO: Abhängigkeiten klären durchgängiges Nummerierungsssystem - angelehnt an die KLR?»',
+        'id'    => 'abhaengigkeiten',
+        'type'  => 'textarea'
+    )
+);
+
+// The Callback
+function show_custom_meta_box() {
+global $custom_meta_fields, $post;
+// Use nonce for verification
+echo '<input type="hidden" name="custom_meta_box_nonce" value="'.wp_create_nonce(basename(__FILE__)).'" />';
+
+    // Begin the field table and loop
+    foreach ($custom_meta_fields as $field) {
+        // get value of this field if it exists for this post
+        $meta = get_post_meta($post->ID, $field['id'], true);
+        // begin a table row with
+        echo '<h4><label for="'.$field['id'].'">'.$field['label'].'</label></h4>';
+                switch($field['type']) {
+                    // text
+					case 'text':
+						echo '<span class="description">'.$field['desc'].'</span><br />'
+							.'<input type="text" name="'.$field['id'].'" id="'.$field['id'].'" value="'.$meta.'" size="30" />';
+						break;
+					// textarea
+					case 'textarea':
+						echo '<span class="description">'.$field['desc'].'</span><br />';
+						wp_editor($meta,$field['id']);
+						break;
+					// textarea ohne WYSIWYG
+					/*case 'textarea':
+						echo '<span class="description">'.$field['desc'].'</span><br />'
+							. '<textarea name="'.$field['id'].'" id="'.$field['id'].'" cols="60" rows="4">'.$meta.'</textarea>';
+						break;*/
+					// checkbox
+					case 'checkbox':
+						echo '<span class="description">'.$field['desc'].'</span><br />'
+							.'<input type="checkbox" name="'.$field['id'].'" id="'.$field['id'].'" ',$meta ? ' checked="checked"' : '','/>';
+						break;
+					// select
+					case 'select':
+						echo '</select><br /><span class="description">'.$field['desc'].'</span>';
+						echo '<select name="'.$field['id'].'" id="'.$field['id'].'">';
+						foreach ($field['options'] as $option) {
+							echo '<option', $meta == $option['value'] ? ' selected="selected"' : '', ' value="'.$option['value'].'">'.$option['label'].'</option>';
+						}
+						break;
+				} //end switch
+		echo '<br /><hr />';
+    } // end foreach
 }
 
-/* Display the post meta box. */
-function rrze_dlp_meta_box( $object, $box ) { ?>
-	<?php wp_nonce_field( basename( __FILE__ ), 'rrze_dlp_service_nonce' ); ?>
-		<label for="rrze-dlp-service"><?php _e( "Short description of the service provided (1 sentence)", 'example' ); ?></label>
-	<?php wp_editor(get_post_meta( $object->ID, 'service', true ),'wp_editor-service',array( 'textarea_rows' => 3 ));
- }
+// Save the Data
+function save_custom_meta($post_id) {
+    global $custom_meta_fields;
 
-/* Save the meta box's post metadata. */
-function rrze_dlp_save_post_meta_boxes( $post_id ) {
+    // verify nonce
+    if (!wp_verify_nonce($_POST['custom_meta_box_nonce'], basename(__FILE__)))
+        return $post_id;
+    // check autosave
+    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE)
+        return $post_id;
+    // check permissions
+    if ('page' == $_POST['post_type']) {
+        if (!current_user_can('edit_page', $post_id))
+            return $post_id;
+        } elseif (!current_user_can('edit_post', $post_id)) {
+            return $post_id;
+    }
 
-	/* Verify the nonce before proceeding. */
-	if ( !isset( $_POST['rrze_dlp_service_nonce'] ) || !wp_verify_nonce( $_POST['rrze_dlp_service_nonce'], basename( __FILE__ ) ) )
-		return;
-
-	/* If this is an autosave, our form has not been submitted, so we don't want to do anything. */
-	if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
-		return;
-	}
-
-	/* Check the user's permissions. */
-	if ( ! current_user_can( 'edit_post', $post_id ) ) {
-			return;
-	}
-
-	/* Make sure that it is set. */
-	if ( ! isset( $_POST['wp_editor-service'] ) ) {
-		return;
-	}
-
-	/* Get the meta key. */
-	$meta_key = 'service';
-
-	/* Get the posted data and sanitize it for use as an HTML class. */
-	$new_meta_value = sanitize_text_field($_POST['wp_editor-service']);
-
-	/* Get the meta value of the custom field key. */
-	$meta_value = get_post_meta( $post_id, $meta_key, true );
-
-	/* If a new meta value was added and there was no previous value, add it. */
-	if ( $new_meta_value && '' == $meta_value ) {
-	add_post_meta( $post_id, $meta_key, $new_meta_value, true ); }
-
-	/* If the new meta value does not match the old value, update it. */
-	elseif ( $new_meta_value && $new_meta_value != $meta_value ) {
-	update_post_meta( $post_id, $meta_key, $new_meta_value );}
-
-	/* If there is no new meta value but an old value exists, delete it. */
-	elseif ( '' == $new_meta_value && $meta_value ) {
-	delete_post_meta( $post_id, $meta_key, $meta_value );}
+    // loop through fields and save the data
+    foreach ($custom_meta_fields as $field) {
+        $old = get_post_meta($post_id, $field['id'], true);
+        $new = $_POST[$field['id']];
+        if ($new && $new != $old) {
+            update_post_meta($post_id, $field['id'], $new);
+        } elseif ('' == $new && $old) {
+            delete_post_meta($post_id, $field['id'], $old);
+        }
+    } // end foreach
 }
+add_action('save_post', 'save_custom_meta');
+
 
 
 /**
