@@ -46,7 +46,6 @@
 		<!--[if lt IE 9]>
 		<script src="<?php echo get_template_directory_uri(); ?>/js/html5.js" type="text/javascript"></script>
 		<![endif]-->
-		<link id="all-style-css" media="all" type="text/css" href="<?php echo get_template_directory_uri(); ?>/css/style.css?ver=3.8.3" rel="stylesheet">
 		<?php wp_head(); ?>
 	</head>
 
