@@ -7,7 +7,8 @@
  */
 
 
-require_once ( get_stylesheet_directory() . '/theme-options.php' );
+require_once ( get_stylesheet_directory() . '/inc/constants.php' );
+require_once ( get_stylesheet_directory() . '/inc/theme-options.php' );
 
 /**
  * Set the content width based on the theme's design and stylesheet.
@@ -18,15 +19,7 @@ if ( ! isset( $content_width ) )
     $content_width = 1170; /* pixels */
 
 if ( ! function_exists( 'rrze_dlp_setup' ) ):
-/**
- * Sets up theme defaults and registers support for various WordPress features.
- *
- * Note that this function is hooked into the after_setup_theme hook, which runs
- * before the init hook. The init hook is too late for some features, such as indicating
- * support post thumbnails.
- *
- * @since RRZE-DLP 2.0
- */
+
 function rrze_dlp_setup() {
 
     // Custom template tags for this theme.
@@ -35,12 +28,6 @@ function rrze_dlp_setup() {
     //Custom functions that act independently of the theme templates
     require( get_template_directory() . '/inc/tweaks.php' );
 
-    /**
-     * Make theme available for translation
-     * Translations can be filed in the /languages/ directory
-     * If you're building a theme based on Shape, use a find and replace
-     * to change 'shape' to the name of your theme in all the template files
-     */
     load_theme_textdomain( 'rrze-dlp', get_template_directory() . '/languages' );
 
     //This theme uses wp_nav_menu() in one location.
@@ -126,69 +113,7 @@ function add_custom_meta_box() {
 }
 add_action('add_meta_boxes', 'add_custom_meta_box');
 
-//Field Array
-$custom_meta_fields = array(
-    array(
-        'label'=> 'Service',
-        'desc'  => 'Kurzbeschreibung der DL (1 Satz)',
-        'id'    => 'service',
-        'type'  => 'textarea'
-    ),
-	array(
-        'label'=> 'Beschreibung',
-        'desc'  => 'ausführliche, erläuternde Beschreibung der DL (3-10 Sätze) Leitsätze: Wie kann man die DL treffend und umfänglich mit einem Satz beschreiben? Was kann der Kunde damit tun? Welche Voraussetzungen werden an die Nutzung der DL gestellt? Welchen Nutzen zieht der Kunde aus der Benutzung der DL? Jeder Bestandteil der DL ist in einem vollständigen Satz zu formulieren. Der Text ist so formulieren, dass ein technischer Laie es versteht (Layer 8 Kompatibilität!). Fachbegriffe erklären und ins Glossar verlinken. Zuständig für abschließende Formulierung: Redaktion',
-        'id'    => 'beschreibung',
-        'type'  => 'textarea'
-    ),
-	array(
-        'label'=> 'Umfang',
-        'desc'  => 'Was bekommt der Kunde - differenziert nach Standard-Kundengruppen (diese sind definiert unter DLP:Kundengruppen) Für Studierende? Für Beschäftigte? Für Sonstige?',
-        'id'    => 'umfang',
-        'type'  => 'textarea'
-    ),
-	array(
-        'label'=> 'Links zu Dokumentation',
-        'desc'  => 'Hier bitte die Seiten im Wiki verlinken, die den Kunden die Benutzung der DL erläutern. Hier gehören auch Links auf die Dokumentation der zur Erbringung der DL benötigten Server hin! Außerdem die zur Erbringung notwendige Software. Sollte die Software von uns selbst paketiert werden, so bitte auf die entsprechenden Projekte auf dem rembo (Windows) oder OBS (OpenSUSE Build Service, Linux) verlinken. notfalls erstmal Links auf entsprechende RRZE-Webseiten. Diese dann aber bei Zeiten ins RRZE-Wiki überführen!',
-        'id'    => 'links_zu_dokumentation',
-        'type'  => 'textarea'
-    ),
-	array(
-        'label'=> 'Basisdienstleistungen',
-        'desc'  => 'Was ist für die Erbringung dieser DL direkt notwendig - Zuständig: Gruppe/Abteilung bzw. Person - Abteilung - Zuständig: Abteilungen, besser Gruppen - nur bei wirklich sehr personenbezogenen Zuständigkeiten, das Namenskürzel der Person inkl. Angabe der Abteilung',
-        'id'    => 'basisdienstleistungen',
-        'type'  => 'textarea'
-    ),
-	array(
-        'label'=> 'Preis Basisdienstleistungen',
-        'desc'  => '«TODO: sollte hier ein kalkulatorische Preis stehen, wenn die DL für den Nutzer kostenlos ist?»',
-        'id'    => 'preis_basisdienstleistungen',
-        'type'  => 'textarea'
-    ),
-	array(
-        'label'=> 'Leistungserweiterungen',
-        'desc'  => 'Welche Erweiterungen zur DL sind verfügbar? (optional) Zuständig: Gruppe/Abteilung bzw. Person - Abteilung - Zuständig: Abteilungen, besser Gruppen - nur bei wirklich sehr personenbezogenen Zuständigkeiten, das Namenskürzel der Person inkl. Angabe der Abteilung',
-        'id'    => 'leistungserweiterungen',
-        'type'  => 'textarea'
-    ),
-	array(
-        'label'=> 'Preis Leistungserweiterungen',
-        'desc'  => 'Aus WIKI: «TODO: Sollte hier ein kalkulatorischer Preis stehen, wenn die DL für den Nutzer kostenlos ist oder sind Erweiterungen immer kostenpflichtig?»',
-        'id'    => 'preis_leistungserweiterungen',
-        'type'  => 'textarea'
-    ),
-	array(
-        'label'=> 'Kontakt',
-        'desc'  => 'ansonsten: DL-spezifisches Funktionspostfach',
-        'id'    => 'kontakt',
-        'type'  => 'textarea'
-    ),
-	array(
-        'label'=> 'Abhängigkeiten',
-        'desc'  => 'andere DL von denen diese (als Vorbedingung) abhängig ist] Aus WIKI: «TODO: Abhängigkeiten klären durchgängiges Nummerierungsssystem - angelehnt an die KLR?»',
-        'id'    => 'abhaengigkeiten',
-        'type'  => 'textarea'
-    )
-);
+
 
 // The Callback
 function show_custom_meta_box() {
