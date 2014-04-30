@@ -10,13 +10,16 @@
 require_once ( get_stylesheet_directory() . '/inc/constants.php' );
 require_once ( get_stylesheet_directory() . '/inc/theme-options.php' );
 
+$options = rrze_dlp_initoptions();
+    // adjusts variables for downwards comptability
+
 /**
  * Set the content width based on the theme's design and stylesheet.
  *
  * @since RRZE-DLP 2.0
  */
 if ( ! isset( $content_width ) )
-    $content_width = 1170; /* pixels */
+    $content_width = $options['content_width']; /* pixels */
 
 if ( ! function_exists( 'rrze_dlp_setup' ) ):
 
@@ -37,6 +40,21 @@ function rrze_dlp_setup() {
 }
 endif; // rrze_dlp_setup
 add_action( 'after_setup_theme', 'rrze_dlp_setup' );
+
+
+function rrze_dlp_initoptions() {
+    global $defaultoptions;
+    // $doupdate = 0;
+    
+    $oldoptions = get_option('rrze_dlp_theme_options');
+    if (isset($oldoptions) && (is_array($oldoptions))) {
+        $newoptions = array_merge($defaultoptions,$oldoptions);	  
+    } else {
+        $newoptions = $defaultoptions;
+    }    
+    return $newoptions;
+}
+
 
 
 /**
@@ -63,30 +81,28 @@ add_action( 'widgets_init', 'rrze_dlp_widgets_init' );
  * Enqueue scripts and styles
  */
 function rrze_dlp_scripts() {
+    global $options;
     wp_enqueue_style( 'style', get_stylesheet_uri() );
 
     if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
         wp_enqueue_script( 'comment-reply' );
     }
 
-    wp_enqueue_script( 'navigation', get_template_directory_uri() . '/js/navigation.js', array(), '20120206', true );
+    wp_enqueue_script( 'navigation', get_template_directory_uri() . '/js/navigation.js', array(), $options['version'], true );
+    wp_enqueue_script( 'script', get_template_directory_uri() . '/js/script.js', array(), false);
 
-	wp_enqueue_script( 'script', get_template_directory_uri() . '/js/script.js', array(), false);
-
-	if ( is_singular() && wp_attachment_is_image() ) {
-        wp_enqueue_script( 'keyboard-image-navigation', get_template_directory_uri() . '/js/keyboard-image-navigation.js', array( 'jquery' ), '20120202' );
+    if ( is_singular() && wp_attachment_is_image() ) {
+        wp_enqueue_script( 'keyboard-image-navigation', get_template_directory_uri() . '/js/keyboard-image-navigation.js', array( 'jquery' ), $options['version'] );
     }
 }
 add_action( 'wp_enqueue_scripts', 'rrze_dlp_scripts' );
 
-/**
- * Changing excerpt length
 
-function new_excerpt_length($length) {
-return 55;
+function rrze_dlp_admin_style() {
+    wp_enqueue_media();  
 }
-add_filter('excerpt_length', 'new_excerpt_length');
- */
+add_action( 'admin_enqueue_scripts', 'rrze_dlp_admin_style' );
+
 
 /**
  * Changing excerpt more
@@ -117,10 +133,11 @@ add_action('add_meta_boxes', 'add_custom_meta_box');
 
 // The Callback
 function show_custom_meta_box() {
-global $custom_meta_fields, $post;
+global $post;
+global $defaultoptions;
 // Use nonce for verification
 echo '<input type="hidden" name="custom_meta_box_nonce" value="'.wp_create_nonce(basename(__FILE__)).'" />';
-
+$custom_meta_fields = $defaultoptions['datafields'];
     // Begin the field table and loop
     foreach ($custom_meta_fields as $field) {
         // get value of this field if it exists for this post
@@ -163,7 +180,8 @@ echo '<input type="hidden" name="custom_meta_box_nonce" value="'.wp_create_nonce
 
 // Save the Data
 function save_custom_meta($post_id) {
-    global $custom_meta_fields;
+    global $defaultoptions;
+    $custom_meta_fields = $defaultoptions['datafields'];
 
     // verify nonce
     if (!wp_verify_nonce($_POST['custom_meta_box_nonce'], basename(__FILE__)))
