@@ -12,6 +12,9 @@
  * @lastmodified    04/2014
 */
 
+@media screen {
+
+
 /* --- Reset ------------------------------------------------------------*/
 
 html, body, div, span, applet, object, iframe,
@@ -53,42 +56,77 @@ table {
 /* --- Ende Reset -------------------------------------------------------*/
 
 
-@media screen {
+   /* Allgemeine Styles */
 
-    body {
-        overflow-y: scroll;
-        font-size: 1em;
-        margin:0;
-        padding:0;
-        font-family: 'Palatino Linotype','Book Antiqua',Palatino,serif;
-        background: none repeat scroll 0 0 #2B517D;;
+	body {
+        //font-family: 'Palatino Linotype','Book Antiqua',Palatino,serif;
+		font-family: 'Century Gothic', 'Avant Garde', Verdana, Helvetiva Neue, Helvetica, Arial, sans-serif;
+        background: none repeat scroll 0 0 #B9B8BD;
+		color: #333;
+		line-height: 1.5em;
     }
 
-    /* Seite  */
+    p {
+		margin: 5px 0 10px;
+	}
+	ul {
+		margin-left: 30px;
+		margin-bottom: 10px;
+	}
+	h1, h2, h3, h4 {
+		font-family: 'Palatino Linotype', 'Book Antiqua', 'Times New Roman', serif;
+		font-weight: normal;
+	}
+	h1 {
+		padding: 10px 0 15px;
+		font-size: 1.8em;
+		color: #004277;
+	}
+	h2 {
+		padding: 10px 0;
+		color: #295F9F;
+		font-size: 1.3em;
+	}
+
+	h3 {
+		padding: 10px 0;
+		color: #636269;
+		font-size: 1.1em;
+		font-style: italic;
+	}
+
+	a:hover,
+	a:focus,
+	a:active {
+        background: #e8f3f9;
+    }
+
+	/* Seite  */
 
 	#page {
-        margin:auto;
-        min-width: 610px;
-        padding:0;
-        background:#f0f0f0;
-        border-bottom: 2em solid #F0F0F0;
-	    border-width: 10px;
-	    box-shadow: 0 0 15px rgba(0, 0, 0, 0.6);
+        position: relative;
+		min-width: 610px;
+        max-width: 1170px;
+		background:#fff;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.6);
 	    margin: 0 auto;
-	    max-width: 1170px;
-	    position: relative;
     }
 
     /* Header */
 
-	header {
+	header.site-header {
         margin:0;
-        height:100%;
+        height:200px;
         position:relative;
 		padding: 15px;
-
+		background: url(../img/header-dlp.jpg);
     }
 
+	hgroup {
+		display: inline-block;
+		padding: 15px;
+		background-color:rgba(255,255,255,0.7);
+	}
 	header img {
 		float:left;
 		margin-right: 15px;
@@ -96,10 +134,10 @@ table {
 	}
 
 	header .site-title {
-		padding: 0;
+		padding: 5px 0;
 		margin: 0;
-		vertical-align: 10px;
 		color: #2B517D;
+		font-weight: bold;
     }
 
 	.site-title  a {
@@ -109,9 +147,11 @@ table {
     }
 
 	.site-description {
-        margin: 5px 0;
+        margin: 0;
+		padding:5px 0;
 		font-style: italic;
-        font-size:1em;
+        font-size:1.1em;
+		color: #4a494f;
     }
 
 	/* Breadcrumbs */
@@ -184,11 +224,15 @@ table {
 		list-style: none;
     }
 
+	#hauptmenu ul {
+		margin:0;
+	}
+
 	#hauptmenu li {
 		list-style-type: none;
 	}
 
-	#hauptmenu li a {
+	/*#hauptmenu li a {
 		height: 8em;
 		width: 14em;
 		float: left;
@@ -201,17 +245,17 @@ table {
         vertical-align: central;
 		margin: 0.4em 0.5em;
 	}
-
+*/
 
 
 
     /* Content */
 
-	a:focus {
-        background: #D8D8D8;
-    }
+	#content article {
+		margin: 15px 0;
+	}
 
-    #content a:link {
+	#content a:link {
         color:#3D3D3D;
     }
     #content a:visited {
@@ -223,15 +267,13 @@ table {
         background-color: #C0D2E0;
     }
 
-	#content div.entry-meta{
-        /* text-align: right; */
-    }
-
-    #content footer.entry-meta {
-        background-color: #d8d8d8;
-        border-top:2px #3d3d3d dashed;
-        border-bottom:2px #3d3d3d dashed;
-        padding:10px;
+	#content footer.entry-meta {
+        //background-color: #F2F2F2;
+		border-top: 1px solid #cacacd;
+		padding:10px;
+		margin: 20px 0;
+		font-size: .8em;
+		line-height: 1.4em;
     }
 
 
@@ -356,121 +398,49 @@ table {
 
 
     #main{
-
+		padding: 20px;
     }
 
     #content{
         position:relative;
-        background: #F0F0F0;
-        font-family: 'Palatino Linotype','Book Antiqua',Palatino,serif;
-        font-size: 1em;
-        line-height: 1.524em;
-        color: rgb(17, 17, 17);
-        -moz-hyphens: auto;
-        hyphens: auto;
-        padding:10px 15px 10px 15px;
-        border-bottom: 5px ridge #3D3D3D;
+        border-bottom: 2px solid #3D3D3D;
     }
 
-    #content h1 {
-        font-size:1.3em;
-    }
-
-    #footer {
-        background:#3D3D3D;
-        color:#fff;
+    footer.site-footer {
         position:relative;
-        font-family: 'Palatino Linotype','Book Antiqua',Palatino,serif;
-        font-size: 1em;
-        line-height: 1.524em;
-        -moz-hyphens: auto;
-        hyphens: auto;
-        padding:10px 15px 10px 15px;
+        padding: 15px;
         text-rendering: optimizelegibility;
-        margin-top:1em;
         background: #3D3D3D url('rrze-logo.jpg') 0 5px no-repeat;
         background-size: 1170px 400px;
+		color:#fff;
+		font-size: .9em;
+		letter-spacing: .02em;
     }
 
-    div.tagcloud {
-        background: none repeat scroll 0 0 transparent !important;
-        margin-bottom: 1em;
-        margin-top: 1em;
-        position: relative;
-        width: 100%;
-    }
-    .tagcloud a {
-        font-size: 0.9em !important;
-        text-decoration: none;
-    }
+	.site-footer h1,
+	.site-footer h2,
+	.site-footer h3,
+	.site-footer h4 {
+		color: #ddd;
+	}
+	.site-footer p {
+		margin: 5px 0;
+	}
 
-    .tagcloud a:link {
-        -moz-transform: rotate(-2deg);
-        -moz-transition: -moz-transform 0.1s ease-in 0s;
-        -webkit-transform: rotate(-2deg);
-        -webkit-transition: -webkit-transform 0.1s ease-in 0s;
-        transform: rotate(-2deg);
-        transition: transform 0.1s ease-in 0s;
-        background: none repeat scroll 0 0 #879EB0;
-        border: medium none;
-        box-shadow: 0 0 10px #000000;
-        color: #EEEEFF;
-        display: inline-block !important;
-        font-weight: bold;
-        padding: 0.2em 0.5em !important;
-        text-decoration: none;
-        text-shadow: 2px 0 rgba(0, 0, 0, 0.2), 0 2px rgba(0, 0, 0, 0.2), -2px 0 rgba(255, 255, 255, 0.2), 0 -2px rgba(255, 255, 255, 0.2), 2px 2px rgba(0, 0, 0, 0.2), -2px -2px rgba(255, 255, 255, 0.2);
-    }
+	footer .tagcloud a {
+		color: #eee;
+		text-decoration: none;
+		display: inline-block;
+		padding: 0 5px;
+	}
 
-    .tagcloud a:last-child:after {
-        clear: both;
-    }
-    .tagcloud a:hover {
-        -moz-transform: rotate(3deg) scale(1.2);
-        -webkit-transform: rotate(3deg) scale(1.2);
-        transform: rotate(3deg) scale(1.2);
-        background-color: #005386;
-        box-shadow: 0 0 8px #000064;
-        color: #FFFFFF;
-        z-index: 10000;
-    }
-    .tagcloud a:nth-child(2n) {
-        -moz-transform: rotate(2deg);
-        -webkit-transform: rotate(2deg);
-        transform: rotate(2deg);
-        background-color: #628BAF;
-        font-size: 1.2em;
-    }
-    .tagcloud a:nth-child(4n) {
-        -moz-transform: rotate(-7deg);
-        -webkit-transform: rotate(-7deg);
-        transform: rotate(-7deg);
-        background-color: #879EB0;
-        font-size: 1em !important;
-    }
-    .tagcloud a:nth-child(5n) {
-        -moz-transform: rotate(-3deg);
-        -webkit-transform: rotate(-3deg);
-        transform: rotate(-3deg);
-        background-color: #91B0C9;
-        font-size: 1.3em;
-    }
-    .tagcloud a:nth-child(2n):hover {
-        -moz-transform: rotate(-3deg) scale(1.2);
-        -mwebkit-transform: rotate(-3deg);
-        transform: rotate(-3deg);
-    }
-    .tagcloud a:nth-child(4n):hover {
-        -moz-transform: rotate(3deg) scale(1.2);
-        -webkit-transform: rotate(3deg) scale(1.2);
-        transform: rotate(3deg) scale(1.2);
-    }
-    .tagcloud a:nth-child(5n):hover {
-        -moz-transform: rotate(2deg) scale(1.2);
-        -webkit-transform: rotate(3deg) scale(1.2);
-        transform: rotate(3deg) scale(1.2);
-    }
-
+	footer .tagcloud a:hover,
+	footer .tagcloud a:focus,
+	footer .tagcloud a:active {
+		color: #fff;
+		text-decoration: underline;
+		background: #000;
+	}
 
     div.widget_categories{
         margin:0;

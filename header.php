@@ -46,7 +46,6 @@
 		<!--[if lt IE 9]>
 		<script src="<?php echo get_template_directory_uri(); ?>/js/html5.js" type="text/javascript"></script>
 		<![endif]-->
-		<link id="all-style-css" media="all" type="text/css" href="<?php echo get_template_directory_uri(); ?>/css/style.css?ver=3.8.3" rel="stylesheet">
 		<?php wp_head(); ?>
 	</head>
 
@@ -54,16 +53,11 @@
 
 		<div id="page" class="site">
 			 <header id="masthead" class="site-header" role="banner">
+				 <img src="<?php echo get_template_directory_uri(); ?>/css/img/rrze-logo-154x60.gif"/>
 				 <hgroup>
 					 <h1 class="site-title"><a href="<?php echo home_url( '/' ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></h1>
 					 <h2 class="site-description"><?php bloginfo( 'description' ); ?></h2>
 				 </hgroup>
-				 <nav role="navigation" class="site-navigation main-navigation" id="hauptmenu">
-					 <h1 class="assistive-text"><?php _e( 'Menu', 'rrze-dlp' ); ?></h1>
-					 <div class="assistive-text skip-link">
-						 <a href="#content" title="<?php esc_attr_e( 'Skip to content', 'rrze-dlp' ); ?>"><?php _e( 'Skip to content', 'rrze-dlp' ); ?></a>
-					 </div>
-					 <?php wp_nav_menu( array( 'theme_location' => 'primary') ); ?>
-				 </nav><!-- .site-navigation .main-navigation -->
 			 </header><!-- #masthead .site-header -->
 		<div id="main" class="site-main">
+			

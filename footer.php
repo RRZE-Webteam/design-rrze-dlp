@@ -7,6 +7,14 @@
 */
 ?>
 
+<nav role="navigation" class="site-navigation main-navigation" id="hauptmenu">
+					 <h1 class="assistive-text"><?php _e( 'Menu', 'rrze-dlp' ); ?></h1>
+					 <div class="assistive-text skip-link">
+						 <a href="#content" title="<?php esc_attr_e( 'Skip to content', 'rrze-dlp' ); ?>"><?php _e( 'Skip to content', 'rrze-dlp' ); ?></a>
+					 </div>
+					 <?php wp_nav_menu( array( 'theme_location' => 'primary') ); ?>
+				 </nav><!-- .site-navigation .main-navigation -->
+
 </div><!-- #main .site-main -->
 
 <footer id="colophon" class="site-footer" role="contentinfo">
