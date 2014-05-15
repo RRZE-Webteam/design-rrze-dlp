@@ -13,15 +13,58 @@ get_header(); ?>
 		<?php if ( have_posts() ) : ?>
 		<?php /* Start the Loop */ ?>
 			<?php while ( have_posts() ) : the_post(); ?>
+				<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+                    <header class="entry-header">
+                        <h1 class="entry-title"><a href="<?php the_permalink(); ?>" title="<?php printf( esc_attr__( 'Permalink zu %s', 'rrze-dlp' ), the_title_attribute( 'echo=0' ) ); ?>" rel="bookmark"><?php the_title(); ?></a></h1>
+                    </header>
+					<div class="entry-summary">
+						<?php
+						/* Include the Post-Format-specific template for the content.
+						* If you want to overload this in a child theme then include a file
+						* called content-___.php (where ___ is the Post Format name) and    that will be used instead.
+						*/
+						$custom_meta = get_post_meta( get_the_ID(), 'service' );
+					   // check if the custom field has a value
+					   if( ! empty( $custom_meta ) ) {
+						   echo '<p>' . $custom_meta[0] . '</p>';
+					   } else {
+						   the_excerpt(); } ?>
+					   <a href="<?php echo get_permalink(); ?>" class="readmore"><?php echo __('Read More...', 'rrze-dlp')?></a>
+					</div>
+					<footer class="entry-meta">
+						<?php if ( 'post' == get_post_type() ) : // Hide category and tag text for pages on Search ?>
+							<?php
+								/* translators: used between list items, there is a space after the comma */
+								$categories_list = get_the_category_list( __( ', ', 'rrze-dlp' ) );
+								if ( $categories_list ) :
+							?>
+							<span class="cat-links">
+								<?php printf( __( 'Posted in %1$s', 'rrze-dlp' ), $categories_list ); ?>
+							</span>
+							<?php endif; // End if categories ?>
 
-				 <?php
-				 /* Include the Post-Format-specific template for the content.
-				 * If you want to overload this in a child theme then include a file
-				 * called content-___.php (where ___ is the Post Format name) and    that will be used instead.
-				 */
-				 get_template_part( 'content', get_post_format() );
-				 ?>
+							<?php
+								/* translators: used between list items, there is a space after the comma */
+								$tags_list = get_the_tag_list( '', __( ', ', 'rrze-dlp' ) );
+								if ( $tags_list ) :
+							?>
+							<span class="sep"> | </span>
+							<span class="tag-links">
+								<?php printf( __( 'Tagged %1$s', 'rrze-dlp' ), $tags_list ); ?>
+							</span>
+							<?php endif; // End if $tags_list ?>
+						<?php endif; // End if 'post' == get_post_type() ?>
+
+						<?php rrze_dlp_modified(); ?>
+
+						<?php edit_post_link( __( 'Edit', 'rrze-dlp' ), '<span class="sep"> | </span><span class="edit-link">', '</span>' ); ?>
+					</footer><!-- .entry-meta -->
+                </article>
+
+				 <?php //get_template_part( 'content', get_post_format() );	 ?>
 			<?php endwhile; ?>
+			<span class="page-nav-prev"><?php previous_posts_link(); ?></span>
+				<span class="page-nav-next"><?php next_posts_link(); ?></span>
 		<?php endif; ?>
     </div><!-- #content .site-content -->
 </div><!-- #primary .content-area -->

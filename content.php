@@ -28,7 +28,7 @@
             <?php
                 /* translators: used between list items, there is a space after the comma */
                 $categories_list = get_the_category_list( __( ', ', 'rrze-dlp' ) );
-                if ( $categories_list && rrze_dlp_categorized_blog() ) :
+                if ( $categories_list ) :
             ?>
             <span class="cat-links">
                 <?php printf( __( 'Posted in %1$s', 'rrze-dlp' ), $categories_list ); ?>
