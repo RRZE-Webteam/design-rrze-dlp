@@ -51,6 +51,74 @@
     </footer><!-- .entry-meta -->
 </article><!-- #post-<?php the_ID(); ?> -->
 
+
+<?php
+
+$menu_name = 'primary';
+$locations = get_nav_menu_locations();
+$menu = wp_get_nav_menu_object( $locations[ $menu_name ] );
+$menuitems = wp_get_nav_menu_items( $menu->term_id, array( 'order' => 'DESC' ) );
+
+foreach ( $menuitems as $item ):
+
+    $id = get_post_meta( $item->ID, '_menu_item_object_id', true );
+    $page = get_page( $id );
+    $link = get_page_link( $id );
+	$custom_meta = get_post_meta( $id, 'service', true ); ?>
+
+    <li class="item">
+        <a href="<?php echo $link; ?>" class="title">
+            <?php echo $page->post_title; the_content(); ?>
+        </a>
+        <?php // check if the custom field has a value
+			if( ! empty( $custom_meta ) ) {
+				echo '<p>' . $custom_meta . '</p>';
+			} else {
+				the_excerpt(); } ?>
+    </li>
+
+<?php /*print_r(get_post_meta($item));*/ endforeach;
+
+
+
+
+$parent_title = get_the_title($post->post_parent);
+echo $parent_title;
+
+/*
+
+$args = array(
+	'posts_per_page'   => 50,
+	'offset'           => 0,
+	'category'         => '',
+	'orderby'          => 'post_date',
+	'order'            => 'DESC',
+	'include'          => '',
+	'exclude'          => '',
+	'meta_key'         => 'beschreibung',
+	'meta_value'       => '',
+	'post_type'        => 'post',
+	'post_mime_type'   => '',
+	'post_parent'      => '',
+	'post_status'      => 'publish',
+	'suppress_filters' => true );
+
+$posts_array = get_posts( $args );
+
+foreach ( $posts_array as $post ) :
+	setup_postdata( $post ); ?>
+	<h2><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
+	<?php $custom_meta = get_post_meta( get_the_ID(), 'service' );
+		// check if the custom field has a value
+		if( ! empty( $custom_meta ) ) {
+			echo '<p>' . $custom_meta[0] . '</p>';
+		} else {
+			the_excerpt(); } ?>
+<?php endforeach;
+wp_reset_postdata();*/
+?>
+
+
 	<?php
 			$num_comments = get_comments_number(); // get_comments_number returns only a numeric value
 			if ( comments_open() ) { ?>

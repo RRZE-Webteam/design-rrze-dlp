@@ -513,7 +513,7 @@ function rrze_dlp_fields() {
 /**
  * Breadcrumbs (Quelle: http://www.qualitytuts.com/wordpress-custom-breadcrumbs-without-plugin/)
  */
-	function custom_breadcrumbs() {
+	function dlp_breadcrumbs() {
 
   $showOnHome = 0; // 1 - show breadcrumbs on the homepage, 0 - don't show
   $delimiter = '&nbsp;&raquo;&nbsp;'; // delimiter between crumbs

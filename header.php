@@ -62,4 +62,6 @@
 			 </header><!-- #masthead .site-header -->
 		<div id="main" class="site-main">
 
-			<?php if (function_exists('custom_breadcrumbs')) custom_breadcrumbs(); ?>
+			<?php wp_nav_menu( array('menu' => 'DLP Komplettübersicht' )); ?>
+
+			<?php if (function_exists('dlp_breadcrumbs')) dlp_breadcrumbs(); ?>
