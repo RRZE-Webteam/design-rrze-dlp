@@ -2,8 +2,8 @@
 class RRZE_Widget_Meta extends WP_Widget {
 
 	function __construct() {
-		$widget_ops = array( 'classname' => 'widget_meta', 'description' => __( 'An-/Abmelden, Adminbereich', 'rrze-dlp' ) );
-		parent::__construct( 'meta', __('Meta'), $widget_ops );
+		$widget_ops = array( 'classname' => 'widget_meta', 'description' => __( 'Login/Logout, Admin', 'rrze-dlp' ) );
+		parent::__construct( 'meta', __( 'Meta', 'rrze-dlp' ), $widget_ops );
 	}
 
 	function widget( $args, $instance ) {
@@ -34,7 +34,7 @@ class RRZE_Widget_Meta extends WP_Widget {
 		$instance = wp_parse_args( (array) $instance, array( 'title' => '' ) );
 		$title = strip_tags( $instance['title'] );
 ?>
-			<p><label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Titel:', 'rrze-dlp' ); ?></label> <input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" /></p>
+			<p><label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:', 'rrze-dlp' ); ?></label> <input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" /></p>
 <?php
 	}
 }
@@ -42,8 +42,8 @@ class RRZE_Widget_Meta extends WP_Widget {
 class RRZE_Widget_Tag_Cloud extends WP_Widget {
 
 	function __construct() {
-		$widget_ops = array( 'description' => __( 'Ihre Schlagworte in einer Wolke', 'rrze-dlp' ) );
-		parent::__construct( 'tag_cloud', __( 'Schlagwörterwolke', 'rrze-dlp' ), $widget_ops );
+		$widget_ops = array( 'description' => __( 'Your tags in a tag cloud', 'rrze-dlp' ) );
+		parent::__construct( 'tag_cloud', __( 'Tag Cloud', 'rrze-dlp' ), $widget_ops );
 	}
 
 	function widget( $args, $instance ) {
@@ -55,7 +55,7 @@ class RRZE_Widget_Tag_Cloud extends WP_Widget {
 			$title = $instance['title'];
 		} else {
 			if ( 'post_tag' == $current_taxonomy ) {
-				$title = __( 'Schlagwörter', 'rrze-dlp' );
+				$title = __( 'Tags', 'rrze-dlp' );
 			} else {
 				$tax = get_taxonomy( $current_taxonomy );
 				$title = $tax->labels->name;
@@ -84,9 +84,9 @@ class RRZE_Widget_Tag_Cloud extends WP_Widget {
 	function form( $instance ) {
 		$current_taxonomy = $this->_get_current_taxonomy( $instance );
 ?>
-	<p><label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Titel:', 'rrze-dlp' ) ?></label>
+	<p><label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:', 'rrze-dlp' ) ?></label>
 	<input type="text" class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" value="<?php if (isset ( $instance['title'] ) ) { echo esc_attr( $instance['title'] ); } ?>" /></p>
-	<p><label for="<?php echo $this->get_field_id( 'taxonomy' ); ?>"><?php _e( 'Taxonomie:', 'rrze-dlp' ) ?></label>
+	<p><label for="<?php echo $this->get_field_id( 'taxonomy' ); ?>"><?php _e( 'Taxonomy:', 'rrze-dlp' ) ?></label>
 	<select class="widefat" id="<?php echo $this->get_field_id( 'taxonomy' ); ?>" name="<?php echo $this->get_field_name( 'taxonomy' ); ?>">
 	<?php foreach ( get_taxonomies() as $taxonomy ) :
 				$tax = get_taxonomy( $taxonomy );

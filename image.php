@@ -92,8 +92,6 @@ get_header();
                     </footer><!-- .entry-meta -->
                 </article><!-- #post-<?php the_ID(); ?> -->
 
-                <?php comments_template(); ?>
-
             <?php endwhile; // end of the loop. ?>
 
             </div><!-- #content .site-content -->

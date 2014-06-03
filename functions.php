@@ -51,6 +51,8 @@ function rrze_dlp_setup() {
 endif; // rrze_dlp_setup
 add_action( 'after_setup_theme', 'rrze_dlp_setup' );
 
+add_theme_support( 'post-thumbnails' );
+
 
 /**
  * Register RRZE-DLP Widgets
@@ -78,10 +80,6 @@ add_action( 'widgets_init', 'rrze_dlp_widgets_init' );
 function rrze_dlp_scripts() {
     wp_enqueue_style( 'style', get_stylesheet_uri() );
 
-    if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
-        wp_enqueue_script( 'comment-reply' );
-    }
-
     wp_enqueue_script( 'navigation', get_template_directory_uri() . '/js/navigation.js', array(), '20120206', true );
 
 	wp_enqueue_script( 'script', get_template_directory_uri() . '/js/script.js', array(), false);
@@ -108,192 +106,6 @@ function new_excerpt_more($more) {
 return ' [<a href="' . get_permalink() . '" title="' . esc_attr( sprintf( __( 'Go to "%s"', 'rrze-dlp' ), the_title_attribute( 'echo=0' ) ) ) . '" rel="bookmark">...</a>]';
 }
 add_filter('excerpt_more', 'new_excerpt_more');
-
-
-/**
-* Menu items filter
-*/
-function _rrze_nav_menu_filter( $path = array(), $items = array() ) {
-
-    $menu_items = array();
-
-    $level = (int) end( $path );
-
-    foreach ( $items as $_item ) {
-        if ( $_item->menu_item_parent == $level )
-            $menu_items[] = $_item;
-    }
-
-    return $menu_items;
-}
-
-/**
-* Menu items list
-*/
-function _rrze_menu_items_list( $post_id = 0 ) {
-
-    $items_list = array();
-    $nav_menus = wp_get_nav_menus( array( 'orderby' => 'ID' ) );
-
-    foreach( (array) $nav_menus as $_nav_menu ) {
-
-        $items = wp_get_nav_menu_items( $_nav_menu->term_id );
-
-        foreach( $items as $_item ) {
-
-            if ( $_item->object_id == $post_id ) {
-
-                $title = $_nav_menu->name;
-                $path = array();
-
-                $menu_parents_items = _rrze_find_parents_path( $items, $post_id );
-
-                foreach( $menu_parents_items as $_parents_item ) {
-                    $title = $_parents_item->title;
-                    $path[] = $_parents_item->ID;
-                }
-
-                $path = implode( '/', $path );
-                $url = home_url( sprintf( '%s/%s', $_nav_menu->slug, $path ) );
-                $items_list[] = sprintf( '<a href="%1$s" rel="menu item" title="%2$s">%3$s</a>', esc_url( $url ), esc_attr( $title ), $title );
-            }
-        }
-
-    }
-
-    return implode( ', ', $items_list );
-
-}
-
-/**
-* Find menu parents items recursively
-*/
-function _rrze_find_parents_path( $items, $value = 0, $key = 'object_id' ) {
-    $parents = array();
-    foreach ( $items as $_item ) {
-        if ( $_item->$key == $value ) {
-            $parents = _rrze_find_parents( $items, $_item->menu_item_parent, 'ID' );
-            if( $key != 'object_id' )
-                $parents[] = $_item;
-        } elseif( empty( $value ) ) {
-            $parents[] = $_item;
-        }
-    }
-    return $parents;
-}
-
-/**
-* Get menu parents items by post id
-*/
-function _rrze_menu_parent_items( $term_id = 0, $post_id = 0 ) {
-    $menu_parent_items = array();
-    $nav_menus = wp_get_nav_menus();
-    $passed = false;
-
-    foreach( (array) $nav_menus as $_nav_menu ) {
-        if( $_nav_menu->term_id == (int) $term_id ) {
-            $passed = true;
-            break;
-        }
-    }
-
-    if( $passed ) {
-        $items = wp_get_nav_menu_items( $term_id );
-        $menu_parent_items = _rrze_find_parents( $items, $post_id );
-    }
-
-    return $menu_parent_items;
-}
-
-/**
-* Get post id from menu path
-*/
-function _rrze_path_post_id( $path = array(), $items = array() ) {
-
-    $post_id = 0;
-
-    $menu_items = _rrze_path_menu_items( $path, $items );
-    $_menu_item = array_shift( $menu_items );
-
-    if( isset( $_menu_item->object_id ) )
-        $post_id = $_menu_item->object_id;
-
-    return $post_id;
-}
-
-/**
-* Get menu path recursively
-*/
-function _rrze_path_menu_items( $path, $items, $value = 0 ) {
-    $menu_items = array();
-
-    foreach ( $items as $_item ) {
-        if ( $_item->ID == current( $path ) && $_item->menu_item_parent == $value ) {
-            next( $path );
-            $menu_items = _rrze_path_menu_items( $path, $items, $_item->ID );
-            $menu_items[] = $_item;
-        }
-    }
-
-    return $menu_items;
-}
-
-/**
-* Find menu parents items recursively
-*/
-function _rrze_find_parents( $items, $value = 0, $key = 'object_id' ) {
-    $parents = array();
-    foreach ( $items as $_item ) {
-        if ( $_item->$key == $value ) {
-            $parents = _rrze_find_parents( $items, $_item->menu_item_parent, 'ID' );
-            if( $key != 'object_id' )
-                $parents[] = $_item;
-        }
-    }
-    return $parents;
-}
-
-/**
-* Find menu parents items recursively
-*/
-function _rrze_find_items( $items, $value, $key = 'object_id' ) {
-    $parents = array();
-    foreach ( $items as $_item ) {
-        if ( $_item->$key == $value ) {
-            $parents = _rrze_find_parents( $items, $_item->menu_item_parent, 'ID' );
-            if( $key != 'object_id' )
-                $parents[] = $_item;
-        }
-    }
-    return $parents;
-}
-
-function _rrze_get_menu_object_id( $path ) {
-
-    $path_array = explode( '/', $path );
-    $nav_menus = wp_get_nav_menus();
-    $passed = false;
-
-    foreach( (array) $nav_menus as $_nav_menu ) {
-        if( $_nav_menu->slug == (int) $path_array[0] ) {
-            $passed = true;
-            break;
-        }
-    }
-
-}
-
-/**
-function _rrze_menu_item_filter( $menu_item ) {
-if( $menu_item->object == 'post' ) {
-$menu_item->post_name = sanitize_title( $menu_item->title );
-}
-return $menu_item;
-}
-
-add_filter( 'wp_setup_nav_menu_item', '_rrze_menu_item_filter' );
-*
-*/
 
 
 /**
@@ -510,111 +322,196 @@ function rrze_dlp_fields() {
 	echo $str;
 }
 
-/**
- * Breadcrumbs (Quelle: http://www.qualitytuts.com/wordpress-custom-breadcrumbs-without-plugin/)
+/*
+ * Breadcrumbs
  */
-	function dlp_breadcrumbs() {
 
-  $showOnHome = 0; // 1 - show breadcrumbs on the homepage, 0 - don't show
-  $delimiter = '&nbsp;&raquo;&nbsp;'; // delimiter between crumbs
-  $home = 'Startseite'; // text for the 'Home' link
-  $showCurrent = 0; // 1 - show current post/page title in breadcrumbs, 0 - don't show
-  $before = '<span class="current">'; // tag before the current crumb
-  $after = '</span>'; // tag after the current crumb
+class SH_BreadCrumbWalker extends Walker{
+    /**
+     * @see Walker::$tree_type
+     * @var string
+     */
+    var $tree_type = array( 'post_type', 'taxonomy', 'custom' );
 
-  global $post;
-  $homeLink = get_bloginfo('url');
+    /**
+     * @see Walker::$db_fields
+     * @var array
+     */
+    var $db_fields = array( 'parent' => 'menu_item_parent', 'id' => 'db_id' );
 
-  if (is_home() || is_front_page()) {
+    /**
+     * delimiter for crumbs
+     * @var string
+     */
+    var $delimiter = ' &raquo; ';
 
-    if ($showOnHome == 1) echo '<div id="breadcrumbs"><a href="' . $homeLink . '">' . $home . '</a></div>';
+    /**
+     * @see Walker::start_el()
+     *
+     * @param string $output Passed by reference. Used to append additional content.
+     * @param object $item Menu item data object.
+     * @param int $depth Depth of menu item.
+     * @param int $current_page Menu item ID.
+     * @param object $args
+     */
+    function start_el(&$output, $item, $depth, $args) {
 
-  } else {
+        //Check if menu item is an ancestor of the current page
+        $classes = empty( $item->classes ) ? array() : (array) $item->classes;
+        $current_identifiers = array( 'current-menu-item', 'current-menu-parent', 'current-menu-ancestor' );
+        $ancestor_of_current = array_intersect( $current_identifiers, $classes );
 
-    echo '<div id="breadcrumbs"><a href="' . $homeLink . '">' . $home . '</a> ' . $delimiter . ' ';
 
-    if ( is_category() ) {
-      $thisCat = get_category(get_query_var('cat'), false);
-      if ($thisCat->parent != 0) echo get_category_parents($thisCat->parent, TRUE, ' ' . $delimiter . ' ');
-      echo $before . __('Archive by category', 'rrze-dlp'). ' "' . single_cat_title('', false) . '"' . $after;
+        if( $ancestor_of_current ){
+            $title = apply_filters( 'the_title', $item->title, $item->ID );
 
-    } elseif ( is_search() ) {
-      echo $before . __('Search results for', 'rrze-dlp'). ' "' . get_search_query() . '"' . $after;
+            //Preceed the first item with 'home'.
+			//if( 0 == $depth )
+            //    $output = '<a href="' . home_url( '/' ) . '" title="' . esc_attr( get_bloginfo( 'name', 'display' ) ) . '" rel="home">' . esc_attr( get_bloginfo( 'name', 'display' ) ) . '</a>' . $this->delimiter;
 
-    } elseif ( is_day() ) {
-      echo '<a href="' . get_year_link(get_the_time('Y')) . '">' . get_the_time('Y') . '</a> ' . $delimiter . ' ';
-      echo '<a href="' . get_month_link(get_the_time('Y'),get_the_time('m')) . '">' . get_the_time('F') . '</a> ' . $delimiter . ' ';
-      echo $before . get_the_time('d') . $after;
+			//Preceed with delimter for all but the first item.
+            if( 0 != $depth )
+                $output .= $this->delimiter;
 
-    } elseif ( is_month() ) {
-      echo '<a href="' . get_year_link(get_the_time('Y')) . '">' . get_the_time('Y') . '</a> ' . $delimiter . ' ';
-      echo $before . get_the_time('F') . $after;
+            //Link tag attributes
+            $attributes  = ! empty( $item->attr_title ) ? ' title="'  . esc_attr( $item->attr_title ) .'"' : '';
+            $attributes .= ! empty( $item->target )     ? ' target="' . esc_attr( $item->target     ) .'"' : '';
+            $attributes .= ! empty( $item->xfn )        ? ' rel="'    . esc_attr( $item->xfn        ) .'"' : '';
+            $attributes .= ! empty( $item->url )        ? ' href="'   . esc_attr( $item->url        ) .'"' : '';
 
-    } elseif ( is_year() ) {
-      echo $before . get_the_time('Y') . $after;
-
-    } elseif ( is_single() && !is_attachment() ) {
-      if ( get_post_type() != 'post' ) {
-        $post_type = get_post_type_object(get_post_type());
-        $slug = $post_type->rewrite;
-        echo '<a href="' . $homeLink . '/' . $slug['slug'] . '/">' . $post_type->labels->singular_name . '</a>';
-        if ($showCurrent == 1) echo ' ' . $delimiter . ' ' . $before . get_the_title() . $after;
-      } else {
-        $cat = get_the_category(); $cat = $cat[0];
-        $cats = get_category_parents($cat, TRUE, ' ' . $delimiter . ' ');
-        if ($showCurrent == 0) $cats = preg_replace("#^(.+)\s$delimiter\s$#", "$1", $cats);
-        echo $cats;
-        if ($showCurrent == 1) echo $before . get_the_title() . $after;
-      }
-
-    } elseif ( !is_single() && !is_page() && get_post_type() != 'post' && !is_404() ) {
-      $post_type = get_post_type_object(get_post_type());
-      echo $before . $post_type->labels->singular_name . $after;
-
-    } elseif ( is_attachment() ) {
-      $parent = get_post($post->post_parent);
-      $cat = get_the_category($parent->ID); $cat = $cat[0];
-      echo get_category_parents($cat, TRUE, ' ' . $delimiter . ' ');
-      echo '<a href="' . get_permalink($parent) . '">' . $parent->post_title . '</a>';
-      if ($showCurrent == 1) echo ' ' . $delimiter . ' ' . $before . get_the_title() . $after;
-
-    } elseif ( is_page() && !$post->post_parent ) {
-      if ($showCurrent == 1) echo $before . get_the_title() . $after;
-
-    } elseif ( is_page() && $post->post_parent ) {
-      $parent_id  = $post->post_parent;
-      $breadcrumbs = array();
-      while ($parent_id) {
-        $page = get_page($parent_id);
-        $breadcrumbs[] = '<a href="' . get_permalink($page->ID) . '">' . get_the_title($page->ID) . '</a>';
-        $parent_id  = $page->post_parent;
-      }
-      $breadcrumbs = array_reverse($breadcrumbs);
-      for ($i = 0; $i < count($breadcrumbs); $i++) {
-        echo $breadcrumbs[$i];
-        if ($i != count($breadcrumbs)-1) echo ' ' . $delimiter . ' ';
-      }
-      if ($showCurrent == 1) echo ' ' . $delimiter . ' ' . $before . get_the_title() . $after;
-
-    } elseif ( is_tag() ) {
-      echo $before .  __('Posts tagged', 'rrze-dlp'). ' "' . single_tag_title('', false) . '"' . $after;
-
-    } elseif ( is_author() ) {
-       global $author;
-      $userdata = get_userdata($author);
-      echo $before . __('Articles posted by ', 'rrze-dlp'). $userdata->display_name . $after;
-
-    } elseif ( is_404() ) {
-      echo $before . __('Error 404', 'rrze-dlp') . $after;
+            //Add to the HTML output
+            $output .=  ' <a'. $attributes .'>'.$title.'</a>';
+        }
     }
+}
 
-    if ( get_query_var('paged') ) {
-      if ( is_category() || is_day() || is_month() || is_year() || is_search() || is_tag() || is_author() ) echo ' (';
-      echo __('Page','rrze-dlp') . ' ' . get_query_var('paged');
-      if ( is_category() || is_day() || is_month() || is_year() || is_search() || is_tag() || is_author() ) echo ')';
-    }
 
-    echo '</div>';
+function dlp_breadcrumbs() {
+	if (!is_front_page()) {
+		$breadcrumbs = printf('<div id="breadcrumbs" class="menu">')
+					 . printf('<a href="' . home_url( '/' ) . '" title="' . esc_attr( get_bloginfo( 'name', 'display' ) ) . '" rel="home">' . esc_attr( get_bloginfo( 'name', 'display' ) ) . '</a> &raquo; ');
+		if (is_tag()) {
+			$breadcrumbs .= printf( '<span>'. single_tag_title( '', false ) . '</span>' );
+		}
+		elseif (is_category()) {
+			$breadcrumbs .= printf( '<span>'. single_cat_title( '', false ) . '</span>' );
+		}
+		elseif (is_day()) {
+			$breadcrumbs .= printf( __( 'Daily Archives: %s', 'rrze-dlp' ), '<span>' . get_the_date() . '</span>' );
+		}
+		elseif (is_month()) {
+			$breadcrumbs .= printf( __( 'Monthly Archives: %s', 'rrze-dlp' ), '<span>' . get_the_date( 'F Y' ) . '</span>' );
+		}
+		elseif (is_year()) {
+			$breadcrumbs .= printf( __( 'Yearly Archives: %s', 'rrze-dlp' ), '<span>' . get_the_date( 'Y' ) . '</span>' );
+		}
+		elseif (is_author()) {
+			/* Queue the first post, that way we know
+			* what author we're dealing with (if that is the case).
+		   */
+		   the_post();
+		   $breadcrumbs .= printf( __( 'Author Archives: %s', 'rrze-dlp' ), '<span>' . get_the_author() . '</span>' );
+		   /* Since we called the_post() above, we need to
+			* rewind the loop back to the beginning that way
+			* we can run the loop properly, in full.
+			*/
+		   rewind_posts();}
+		elseif (isset($_GET['paged']) && !empty($_GET['paged'])) {
+			$breadcrumbs .= printf('<span>' . __( 'Blog Archives' ) . '</span>');
+		}
+		elseif (is_search()) {
+			$breadcrumbs .= printf( '<span>' . __( 'Search Results', 'rrze-dlp' ). '<span>');
+		}
+		else {
+			$breadcrumbs .= wp_nav_menu( array(
+				'container' => 'none',
+				'theme_location' => 'primary',
+				'walker'=> new SH_BreadCrumbWalker,
+				'items_wrap' => '<span>%3$s</span>'
+				//'items_wrap' => '<div id="breadcrumbs" class="%2$s">%3$s</div>'
+			) );
+		}
+		$breadcrumbs .= printf('</div>');
 
-  }
-} // end breadcrumbs()
+		echo $breadcrumbs;
+	}
+}
+/*
+ * DLP-Navigation
+ */
+
+function dlp_contextnav_post() {
+
+	$menu_name = 'primary';
+	$locations = get_nav_menu_locations();
+	$menu = wp_get_nav_menu_object( $locations[ $menu_name ] );
+	$menuitems = wp_get_nav_menu_items( $menu->term_id, array( 'order' => 'DESC' ) );
+	$post_ID = get_the_ID();
+
+	echo '<div id="context-nav" role="navigation">';
+	foreach ( $menuitems as $item ):
+		$id = get_post_meta( $item->ID, '_menu_item_object_id', true );
+		$page = get_page( $id );
+		$link = get_page_link( $id );
+		$custom_meta = get_post_meta( $id, 'service', true );
+		$custom_meta_alt = get_post_meta( $id, 'beschreibung', true );
+
+		if ($post_ID == $item->object_id) { $menu_parent = $item->ID;}
+		if (isset($menu_parent) && $item->menu_item_parent == $menu_parent) {
+			echo '<section class="preview"><header class="entry-header"><h1 class="entry-title"><a href="' .  $link . '" class="title">';
+			echo $page->post_title;
+			echo '</a></h1></header>';
+			echo get_the_post_thumbnail($id);
+			// check if the custom field has a value
+			if ( ! empty( $custom_meta ) ) {
+				echo '<div class="entry-summary"><p>' . wp_trim_words($custom_meta, 40, '&hellip;') . '<br /> <a href="' .  $link . '" class="readmore">' . __( 'Continue reading <span class="meta-nav">&rarr;</span>', 'rrze-dlp' ) . '</a></p></div>';
+			} elseif ( ! empty( $custom_meta_alt )) {
+				echo '<div class="entry-summary"><p>' . wp_trim_words($custom_meta_alt, 40, '&hellip;') . '<br /> <a href="' .  $link . '" class="readmore">' . __( 'Continue reading <span class="meta-nav">&rarr;</span>', 'rrze-dlp' ) . '</a></p></div>';
+			} else {
+				the_excerpt();
+			}
+			echo '</section>';
+		}
+	endforeach;
+	echo '</div>';
+}
+
+function dlp_contextnav_front() {
+	$menu_name = 'primary';
+	$locations = get_nav_menu_locations();
+	$menu = wp_get_nav_menu_object( $locations[ $menu_name ] );
+	$menuitems = wp_get_nav_menu_items( $menu->term_id, array( 'order' => 'DESC' ) );
+	$post_ID = get_the_ID();
+
+	if ('' != $menuitems) {
+	echo '<div id="context-nav" role="navigation">';
+	foreach ( $menuitems as $item ):
+		$id = get_post_meta( $item->ID, '_menu_item_object_id', true );
+		$page = get_page( $id );
+		$link = get_page_link( $id );
+		$custom_meta = get_post_meta( $id, 'service', true );
+		$custom_meta_alt = get_post_meta( $id, 'beschreibung', true );
+
+		if ( $item->menu_item_parent == 0 ) :
+			echo '<section class="preview"><header class="entry-header"><h1 class="entry-title"><a href="' .  $link . '" class="title">';
+			echo $page->post_title;
+			echo '</a></h1></header>';
+			echo get_the_post_thumbnail($id);
+			// check if the custom field has a value
+			if ( ! empty( $custom_meta ) ) {
+				echo '<div class="entry-summary"><p>' . wp_trim_words($custom_meta, 40, '&hellip;') . '<br /> <a href="' .  $link . '" class="readmore">' . __( 'Continue reading <span class="meta-nav">&rarr;</span>', 'rrze-dlp' ) . '</a></p></div>';
+			} elseif ( ! empty( $custom_meta_alt )) {
+				echo '<div class="entry-summary"><p>' . wp_trim_words($custom_meta_alt, 40, '&hellip;') . '<br /> <a href="' .  $link . '" class="readmore">' . __( 'Continue reading <span class="meta-nav">&rarr;</span>', 'rrze-dlp' ) . '</a></p></div>';
+			} else {
+				the_excerpt();
+			}
+			echo '</section>';
+		endif;
+	endforeach;
+	echo '</div>';
+	}
+}
+
+
+
+

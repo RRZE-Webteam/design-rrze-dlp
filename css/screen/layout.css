@@ -1,7 +1,7 @@
 /**
  * Projekt Dienstleistungsportal
  *
- * Layoutstylesheet papka
+ * Layoutstylesheet dlp
  *
  * @author          RRZE-Team, Barbara Bothe
  * @copyright       Copyright 2014, RRZE
@@ -15,45 +15,45 @@
 @media screen {
 
 
-/* --- Reset ------------------------------------------------------------*/
+	/* --- Reset ------------------------------------------------------------*/
 
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed,
-figure, figcaption, footer, header, hgroup,
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
-	margin: 0;
-	padding: 0;
-	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
-	-moz-box-sizing: border-box;    /* Firefox, other Gecko */
-	box-sizing: border-box;         /* Opera/IE 8+ */
-	border: 0;
-	vertical-align: baseline;
-}
-/* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure,
-footer, header, hgroup, menu, nav, section {
-	display: block;
-}
-blockquote:before, blockquote:after,
-q:before, q:after {
-	content: '';
-	content: none;
-}
-table {
-	border-collapse: collapse;
-	border-spacing: 0;
-}
+	html, body, div, span, applet, object, iframe,
+	h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+	a, abbr, acronym, address, big, cite, code,
+	del, dfn, em, img, ins, kbd, q, s, samp,
+	small, strike, strong, sub, sup, tt, var,
+	b, u, i, center,
+	dl, dt, dd, ol, ul, li,
+	fieldset, form, label, legend,
+	table, caption, tbody, tfoot, thead, tr, th, td,
+	article, aside, canvas, details, embed,
+	figure, figcaption, footer, header, hgroup,
+	menu, nav, output, ruby, section, summary,
+	time, mark, audio, video {
+		margin: 0;
+		padding: 0;
+		-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+		-moz-box-sizing: border-box;    /* Firefox, other Gecko */
+		box-sizing: border-box;         /* Opera/IE 8+ */
+		border: 0;
+		vertical-align: baseline;
+	}
+	/* HTML5 display-role reset for older browsers */
+	article, aside, details, figcaption, figure,
+	footer, header, hgroup, menu, nav, section {
+		display: block;
+	}
+	blockquote:before, blockquote:after,
+	q:before, q:after {
+		content: '';
+		content: none;
+	}
+	table {
+		border-collapse: collapse;
+		border-spacing: 0;
+	}
 
-/* --- Ende Reset -------------------------------------------------------*/
+	/* --- Ende Reset -------------------------------------------------------*/
 
 
    /* Allgemeine Styles */
@@ -82,6 +82,10 @@ table {
 		line-height: 1.5em;
 		color: #004277;
 		margin-bottom: 5px;
+	}
+	h1 a:link,
+	h1 a:visited {
+		border-bottom: none;
 	}
 	h1.page-title {
 		font-size: 2em;
@@ -229,7 +233,7 @@ table {
 
 	#page {
         position: relative;
-		min-width: 610px;
+		/*min-width: 480px;*/
         max-width: 1170px;
 		background:#fff;
         box-shadow: 0 0 15px rgba(0, 0, 0, 0.6);
@@ -248,20 +252,22 @@ table {
 
 	hgroup {
 		display: inline-block;
-		padding: 15px;
-		background-color:rgba(255,255,255,0.75);
+		padding: 20px 15px;
+		background-color:rgba(255,255,255,0.8);
 	}
 	header img {
 		float:left;
-		margin-right: 15px;
+		margin-right: 20px;
 		margin-bottom: 10px;
 	}
 
 	header .site-title {
-		padding: 5px 0;
+		padding: 0 0 10px;
 		margin: 0;
 		color: #2B517D;
 		font-weight: bold;
+		line-height: 1em;
+		font-size: 2em;
     }
 
 	.site-title a {
@@ -281,7 +287,7 @@ table {
         margin: 0;
 		padding:5px 0;
 		font-style: italic;
-        font-size:1.1em;
+        font-size:1.2em;
 		color: #4a494f;
     }
 
@@ -320,6 +326,7 @@ table {
         box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2) inset;
         color: #333333;
         width: 20em;
+		max-width: 100%;
         margin:0;
         margin-top: 0.8em;
         padding:3px 5px 3px 5px;
@@ -396,6 +403,12 @@ table {
 		margin: 15px 0;
 	}
 
+	#content .entry-content .wp-post-image {
+		float: right;
+		margin-left: 10px;
+		margin-bottom: 10px;
+	}
+
 	footer.entry-meta {
         border-top: 1px solid #cacacd;
 		padding: 5px 0 0;
@@ -415,70 +428,6 @@ table {
     }
 
 
-	/* Kommentare */
-
-	#comments {
-		margin-top: 50px;
-	}
-	.comment-respond {
-		border: 1px solid #ccccd3;
-		padding: 10px;
-	}
-	.comment-reply-title {
-		padding-top: 0;
-	}
-	.comment-form label {
-		float: left;
-		margin-right: 10px;
-	}
-	.commentlist li {
-		padding: 15px 0;
-	}
-	.commentlist li:last-child {
-		padding-bottom: 0;
-	}
-	.commentlist ul:last-child {
-		border-bottom: 0;
-	}
-	.commentlist cite.fn {
-		font-size: 1.2em;
-		font-weight: bold;
-	}
-	.comments-nav-prev a,
-	.comments-nav-next a {
-		background-color: #DEDEE3;
-		border: 1px solid #CCCCD3;
-		border-radius: 3px 3px 3px 3px;
-		display: inline-block;
-		padding: 3px 10px;
-	}
-	.commentlist p {
-		margin-bottom: 5px;
-	}
-	.comment-form p.form-allowed-tags {
-		font-size: .8em;
-		line-height: 1.1em;
-	}
-	img.avatar {
-		float: left;
-		margin: 0 10px 5px 0;
-	}
-	.says, .comment-meta, .comment-meta a {
-		font-size: .9em;
-		color: #636271;
-		clear: left;
-	}
-	.reply a {
-		display: inline-block;
-		border: 1px solid #dedee3;
-		padding: 3px 10px;
-		background-color: #dedee3;
-		border-radius: 3px;
-		border-color: #ccccd3;
-	}
-
-
-
 	/* Allgemeine Helfer */
 
     .hide-if-no-js {
@@ -490,6 +439,29 @@ table {
         display: none;
     }
 
+	.edit-link {
+		background: #04A4CC;
+		border-color: #037C9A;
+		box-shadow: 0 1px 0 #22CFFB inset, 0 1px 0 rgba(0, 0, 0, 0.15);
+		color: #FFFFFF;
+		font-size: .9em;
+		padding: 5px;
+	}
+	.edit-link:hover {
+		background: #049083;
+	}
+	.edit-link a:link,
+	.edit-link a:visited {
+		border-bottom: none;
+		color: #fff;
+		text-decoration: none;
+	}
+	.edit-link a:hover,
+	.edit-link a:focus,
+	.edit-link a:active {
+		background: none;
+		text-shadow: none;
+	}
 
 
     /*  ------------------------------------------------------
@@ -817,5 +789,40 @@ table {
 		font-size:small;
     }
 
-}
 
+	/* Kontext-Nav */
+
+	#context-nav {
+		margin-top: 30px;
+		border-top: 2px solid #53525F;
+		padding-top: 30px;
+	}
+	#context-nav:after {
+        content: ".";
+        display: block;
+        clear: both;
+        visibility: hidden;
+        line-height: 0;
+        height: 0;
+    }
+	#context-nav .preview {
+		float: left;
+		width: 31%;
+		padding: 0 15px 10px;
+		border-left: 1px solid #ccc;
+		margin-bottom: 20px;
+		overflow: hidden;
+		font-size: .9em;
+	}
+	#context-nav .preview:nth-child(3n+1) {
+		padding-left: 0;
+		clear:both;
+		border-left: none;
+	}
+	#context-nav .preview:nth-child(3n) {
+		padding-right: 0;
+	}
+	#context-nav .preview img {
+		height: auto;
+	}
+}

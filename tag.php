@@ -1,7 +1,5 @@
 <?php get_header(); ?>
 
-<div id="main">
-
     <div id="container">
 
         <div id="content" role="main">
@@ -25,7 +23,7 @@
                 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 
                     <header class="entry-header">
-                        <h1 class="entry-title"><a href="<?php the_permalink(); ?>" title="<?php printf( esc_attr__( 'Permalink zu %s', 'rrze-dlp' ), the_title_attribute( 'echo=0' ) ); ?>" rel="bookmark"><?php the_title(); ?></a></h1>
+                        <h1 class="entry-title"><a href="<?php the_permalink(); ?>" title="<?php printf( esc_attr__( 'Permalink to %s', 'rrze-dlp' ), the_title_attribute( 'echo=0' ) ); ?>" rel="bookmark"><?php the_title(); ?></a></h1>
                     </header>
 
                     <div class="entry-summary">
@@ -71,7 +69,7 @@
                 </article>
 
 				<?php endwhile; ?>
-			
+
 				<span class="page-nav-prev"><?php previous_posts_link(); ?></span>
 				<span class="page-nav-next"><?php next_posts_link(); ?></span>
 
@@ -79,11 +77,11 @@
 
 				<article id="post-0" class="post no-results not-found">
 					<header class="entry-header">
-						<h1 class="entry-title"><?php _e( 'Es konnte nichts gefunden werden.', 'rrze-dlp' ); ?></h1>
+						<h1 class="entry-title"><?php _e( 'Nothing Found', 'rrze-dlp' ); ?></h1>
 					</header><!-- .entry-header -->
 
 					<div class="entry-content">
-						<p><?php _e( 'Entschuldigen Sie bitte, aber in diesem Archiv wurden keine Ergebnisse gefunden.', 'rrze-dlp' ); ?></p>
+						<p><?php _e( 'Sorry, but there are no results in this archive.', 'rrze-dlp' ); ?></p>
 					</div>
 				</article>
 

@@ -12,4 +12,6 @@ Text Domain: rrze-dlp
 */
 
 /* import screen layout | Screen-Layout einbinden */
-@import url(css/screen/layout.css);
+@import url("css/screen/layout.css");
+@import url("css/screen/medium.css") screen and (max-width: 782px);
+@import url("css/screen/small.css") screen and (max-width: 600px);

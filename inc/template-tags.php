@@ -15,7 +15,7 @@ if ( ! function_exists( 'rrze-dlp_modified' ) ) :
  * @since RRZE-DLP 2.0
  */
 function rrze_dlp_modified() {
-    printf( __( '<br />Modified: <time class="entry-date" datetime="%3$s" pubdate>%4$s</time><span class="byline"> by <span class="author vcard"><a class="url fn n" href="%5$s" title="%6$s" rel="author">%7$s</a></span></span>', 'rrze-dlp' ),
+    printf( __( '<br />Modified: <time class="entry-date" datetime="%3$s" pubdate>%4$s</time>', 'rrze-dlp' ),
         esc_url( get_permalink() ),
         esc_attr( get_the_time() ),
         esc_attr( get_the_date( 'c' ) ),
