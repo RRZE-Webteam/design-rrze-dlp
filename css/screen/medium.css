@@ -18,6 +18,9 @@
 		position: static;
 		float: right;
 	}
+	#main {
+		padding: 20px 15px;
+	}
 	#context-nav .preview {
 		width: 49%;
 	}

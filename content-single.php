@@ -46,4 +46,4 @@
     </footer><!-- .entry-meta -->
 </article><!-- #post-<?php the_ID(); ?> -->
 
-<?php if (function_exists('dlp_contextnav_post')) dlp_contextnav_post(); ?>
+<?php if (function_exists('dlp_contextnav_post')) dlp_contextnav_post();?>

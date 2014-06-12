@@ -142,6 +142,7 @@
 	}
 	img, div, embed, iframe {
 		max-width: 100%;
+		height: auto;
 	}
 	.alignleft {
 		float:left;
@@ -247,7 +248,7 @@
         height:200px;
         position:relative;
 		padding: 15px;
-		background: url(../img/header-dlp.jpg);
+		background: url("../img/header-dlp.jpg") 50% 50%;
     }
 
 	hgroup {
@@ -410,8 +411,7 @@
 	}
 
 	footer.entry-meta {
-        border-top: 1px solid #cacacd;
-		padding: 5px 0 0;
+        padding: 5px 0 0;
 		margin: 20px 0;
 		font-size: .8em;
 		line-height: 1.4em;
@@ -794,7 +794,7 @@
 
 	#context-nav {
 		margin-top: 30px;
-		border-top: 2px solid #53525F;
+		border-top: 1px solid #cacacd;
 		padding-top: 30px;
 	}
 	#context-nav:after {
@@ -824,5 +824,9 @@
 	}
 	#context-nav .preview img {
 		height: auto;
+	}
+	#context-nav .preview a.thumbnail-link {
+		border-bottom: none;
+		background-color: inherit;
 	}
 }

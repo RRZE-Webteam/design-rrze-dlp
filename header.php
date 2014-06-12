@@ -63,4 +63,4 @@
 			 </header><!-- #masthead .site-header -->
 		<div id="main" class="site-main">
 
-		<?php dlp_breadcrumbs() ?>
+		<?php if (function_exists('dlp_breadcrumbs')) dlp_breadcrumbs(); ?>

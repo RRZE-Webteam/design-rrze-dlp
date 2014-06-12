@@ -237,8 +237,12 @@ echo '<input type="hidden" name="custom_meta_box_nonce" value="'.wp_create_nonce
 // Save the Data
 function save_custom_meta($post_id) {
     global $custom_meta_fields;
+	global $pagenow;
 
-    // verify nonce
+    //check if on post edit page
+	//if(( 'post.php' != $pagenow ) ||( 'post-new.php' != $pagenow ))
+	//	return $post_id;
+	// verify nonce
     if (!wp_verify_nonce($_POST['custom_meta_box_nonce'], basename(__FILE__)))
         return $post_id;
     // check autosave
@@ -251,8 +255,7 @@ function save_custom_meta($post_id) {
         } elseif (!current_user_can('edit_post', $post_id)) {
             return $post_id;
     }
-
-    // loop through fields and save the data
+	// loop through fields and save the data
     foreach ($custom_meta_fields as $field) {
         $old = get_post_meta($post_id, $field['id'], true);
         $new = $_POST[$field['id']];
@@ -388,42 +391,42 @@ class SH_BreadCrumbWalker extends Walker{
 
 function dlp_breadcrumbs() {
 	if (!is_front_page()) {
-		$breadcrumbs = printf('<div id="breadcrumbs" class="menu">')
-					 . printf('<a href="' . home_url( '/' ) . '" title="' . esc_attr( get_bloginfo( 'name', 'display' ) ) . '" rel="home">' . esc_attr( get_bloginfo( 'name', 'display' ) ) . '</a> &raquo; ');
+		echo '<div id="breadcrumbs" class="menu">'
+			. '<a href="' . home_url( '/' ) . '" title="' . esc_attr( get_bloginfo( 'name', 'display' ) ) . '" rel="home">' . esc_attr( get_bloginfo( 'name', 'display' ) ) . '</a> &raquo; ';
 		if (is_tag()) {
-			$breadcrumbs .= printf( '<span>'. single_tag_title( '', false ) . '</span>' );
+			echo '<span>'. single_tag_title( '', false ) . '</span>';
 		}
 		elseif (is_category()) {
-			$breadcrumbs .= printf( '<span>'. single_cat_title( '', false ) . '</span>' );
+			echo '<span>'. single_cat_title( '', false ) . '</span>';
 		}
 		elseif (is_day()) {
-			$breadcrumbs .= printf( __( 'Daily Archives: %s', 'rrze-dlp' ), '<span>' . get_the_date() . '</span>' );
+			echo __( 'Daily Archives: %s', 'rrze-dlp' ), '<span>' . get_the_date() . '</span>';
 		}
 		elseif (is_month()) {
-			$breadcrumbs .= printf( __( 'Monthly Archives: %s', 'rrze-dlp' ), '<span>' . get_the_date( 'F Y' ) . '</span>' );
+			echo __( 'Monthly Archives: %s', 'rrze-dlp' ), '<span>' . get_the_date( 'F Y' ) . '</span>';
 		}
 		elseif (is_year()) {
-			$breadcrumbs .= printf( __( 'Yearly Archives: %s', 'rrze-dlp' ), '<span>' . get_the_date( 'Y' ) . '</span>' );
+			echo __( 'Yearly Archives: %s', 'rrze-dlp' ), '<span>' . get_the_date( 'Y' ) . '</span>';
 		}
 		elseif (is_author()) {
 			/* Queue the first post, that way we know
 			* what author we're dealing with (if that is the case).
 		   */
 		   the_post();
-		   $breadcrumbs .= printf( __( 'Author Archives: %s', 'rrze-dlp' ), '<span>' . get_the_author() . '</span>' );
+		   echo __( 'Author Archives: %s', 'rrze-dlp' ), '<span>' . get_the_author() . '</span>';
 		   /* Since we called the_post() above, we need to
 			* rewind the loop back to the beginning that way
 			* we can run the loop properly, in full.
 			*/
 		   rewind_posts();}
 		elseif (isset($_GET['paged']) && !empty($_GET['paged'])) {
-			$breadcrumbs .= printf('<span>' . __( 'Blog Archives' ) . '</span>');
+			echo '<span>' . __( 'Blog Archives' ) . '</span>';
 		}
 		elseif (is_search()) {
-			$breadcrumbs .= printf( '<span>' . __( 'Search Results', 'rrze-dlp' ). '<span>');
+			echo '<span>' . __( 'Search Results', 'rrze-dlp' ). '<span>';
 		}
 		else {
-			$breadcrumbs .= wp_nav_menu( array(
+			echo wp_nav_menu( array(
 				'container' => 'none',
 				'theme_location' => 'primary',
 				'walker'=> new SH_BreadCrumbWalker,
@@ -431,24 +434,23 @@ function dlp_breadcrumbs() {
 				//'items_wrap' => '<div id="breadcrumbs" class="%2$s">%3$s</div>'
 			) );
 		}
-		$breadcrumbs .= printf('</div>');
-
-		echo $breadcrumbs;
+		echo '</div>';
 	}
 }
+
+
 /*
  * DLP-Navigation
  */
 
 function dlp_contextnav_post() {
-
 	$menu_name = 'primary';
 	$locations = get_nav_menu_locations();
 	$menu = wp_get_nav_menu_object( $locations[ $menu_name ] );
 	$menuitems = wp_get_nav_menu_items( $menu->term_id, array( 'order' => 'DESC' ) );
 	$post_ID = get_the_ID();
+	$menustr = '';
 
-	echo '<div id="context-nav" role="navigation">';
 	foreach ( $menuitems as $item ):
 		$id = get_post_meta( $item->ID, '_menu_item_object_id', true );
 		$page = get_page( $id );
@@ -458,22 +460,27 @@ function dlp_contextnav_post() {
 
 		if ($post_ID == $item->object_id) { $menu_parent = $item->ID;}
 		if (isset($menu_parent) && $item->menu_item_parent == $menu_parent) {
-			echo '<section class="preview"><header class="entry-header"><h1 class="entry-title"><a href="' .  $link . '" class="title">';
-			echo $page->post_title;
-			echo '</a></h1></header>';
-			echo get_the_post_thumbnail($id);
+			$menustr .= '<section class="preview"><header class="entry-header"><h1 class="entry-title"><a href="' .  $link . '" class="title">';
+			$menustr .= $page->post_title;
+			$menustr .= '</a></h1></header>';
+			$menustr .= '<a href="' .  $link . '" class="thumbnail-link">';
+			$menustr .= get_the_post_thumbnail($id);
+			$menustr .= '</a>';
 			// check if the custom field has a value
 			if ( ! empty( $custom_meta ) ) {
-				echo '<div class="entry-summary"><p>' . wp_trim_words($custom_meta, 40, '&hellip;') . '<br /> <a href="' .  $link . '" class="readmore">' . __( 'Continue reading <span class="meta-nav">&rarr;</span>', 'rrze-dlp' ) . '</a></p></div>';
+				$menustr .= '<div class="entry-summary"><p>' . wp_trim_words($custom_meta, 40, '&hellip;') . '<br /> <a href="' .  $link . '" class="readmore">' . __( 'Continue reading <span class="meta-nav">&rarr;</span>', 'rrze-dlp' ) . '</a></p></div>';
 			} elseif ( ! empty( $custom_meta_alt )) {
-				echo '<div class="entry-summary"><p>' . wp_trim_words($custom_meta_alt, 40, '&hellip;') . '<br /> <a href="' .  $link . '" class="readmore">' . __( 'Continue reading <span class="meta-nav">&rarr;</span>', 'rrze-dlp' ) . '</a></p></div>';
+				$menustr .= '<div class="entry-summary"><p>' . wp_trim_words($custom_meta_alt, 40, '&hellip;') . '<br /> <a href="' .  $link . '" class="readmore">' . __( 'Continue reading <span class="meta-nav">&rarr;</span>', 'rrze-dlp' ) . '</a></p></div>';
 			} else {
-				the_excerpt();
+				$menustr .= the_excerpt();
 			}
-			echo '</section>';
+			$menustr .= '</section>';
 		}
 	endforeach;
-	echo '</div>';
+	if ('' != $menustr) {
+		printf('<div id="context-nav" role="navigation">%s</div>', $menustr);
+	}
+
 }
 
 function dlp_contextnav_front() {
@@ -482,9 +489,8 @@ function dlp_contextnav_front() {
 	$menu = wp_get_nav_menu_object( $locations[ $menu_name ] );
 	$menuitems = wp_get_nav_menu_items( $menu->term_id, array( 'order' => 'DESC' ) );
 	$post_ID = get_the_ID();
+	$menustr = '';
 
-	if ('' != $menuitems) {
-	echo '<div id="context-nav" role="navigation">';
 	foreach ( $menuitems as $item ):
 		$id = get_post_meta( $item->ID, '_menu_item_object_id', true );
 		$page = get_page( $id );
@@ -493,22 +499,25 @@ function dlp_contextnav_front() {
 		$custom_meta_alt = get_post_meta( $id, 'beschreibung', true );
 
 		if ( $item->menu_item_parent == 0 ) :
-			echo '<section class="preview"><header class="entry-header"><h1 class="entry-title"><a href="' .  $link . '" class="title">';
-			echo $page->post_title;
-			echo '</a></h1></header>';
-			echo get_the_post_thumbnail($id);
+			$menustr .= '<section class="preview"><header class="entry-header"><h1 class="entry-title"><a href="' .  $link . '" class="title">';
+			$menustr .= $page->post_title;
+			$menustr .= '</a></h1></header>';
+			$menustr .= '<a href="' .  $link . '" class="thumbnail-link">';
+			$menustr .= get_the_post_thumbnail($id);
+			$menustr .= '</a>';
 			// check if the custom field has a value
 			if ( ! empty( $custom_meta ) ) {
-				echo '<div class="entry-summary"><p>' . wp_trim_words($custom_meta, 40, '&hellip;') . '<br /> <a href="' .  $link . '" class="readmore">' . __( 'Continue reading <span class="meta-nav">&rarr;</span>', 'rrze-dlp' ) . '</a></p></div>';
+				$menustr .= '<div class="entry-summary"><p>' . wp_trim_words($custom_meta, 40, '&hellip;') . '<br /> <a href="' .  $link . '" class="readmore">' . __( 'Continue reading <span class="meta-nav">&rarr;</span>', 'rrze-dlp' ) . '</a></p></div>';
 			} elseif ( ! empty( $custom_meta_alt )) {
-				echo '<div class="entry-summary"><p>' . wp_trim_words($custom_meta_alt, 40, '&hellip;') . '<br /> <a href="' .  $link . '" class="readmore">' . __( 'Continue reading <span class="meta-nav">&rarr;</span>', 'rrze-dlp' ) . '</a></p></div>';
+				$menustr .= '<div class="entry-summary"><p>' . wp_trim_words($custom_meta_alt, 40, '&hellip;') . '<br /> <a href="' .  $link . '" class="readmore">' . __( 'Continue reading <span class="meta-nav">&rarr;</span>', 'rrze-dlp' ) . '</a></p></div>';
 			} else {
-				the_excerpt();
+				$menustr .= the_excerpt();
 			}
-			echo '</section>';
+			$menustr .= '</section>';
 		endif;
 	endforeach;
-	echo '</div>';
+	if ('' != $menustr) {
+		printf('<div id="context-nav" role="navigation">%s</div>', $menustr);
 	}
 }
 
