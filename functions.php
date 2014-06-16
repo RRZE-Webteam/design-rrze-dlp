@@ -190,9 +190,9 @@ $custom_meta_fields = array(
 
 // The Callback
 function show_custom_meta_box() {
-global $custom_meta_fields, $post;
-// Use nonce for verification
-echo '<input type="hidden" name="custom_meta_box_nonce" value="'.wp_create_nonce(basename(__FILE__)).'" />';
+	global $custom_meta_fields, $post;
+	// Use nonce for verification
+	echo '<input type="hidden" name="custom_meta_box_nonce" value="'.wp_create_nonce(basename(__FILE__)).'" />';
 
     // Begin the field table and loop
     foreach ($custom_meta_fields as $field) {
@@ -237,13 +237,12 @@ echo '<input type="hidden" name="custom_meta_box_nonce" value="'.wp_create_nonce
 // Save the Data
 function save_custom_meta($post_id) {
     global $custom_meta_fields;
-	global $pagenow;
-
-    //check if on post edit page
-	//if(( 'post.php' != $pagenow ) ||( 'post-new.php' != $pagenow ))
-	//	return $post_id;
+	
 	// verify nonce
-    if (!wp_verify_nonce($_POST['custom_meta_box_nonce'], basename(__FILE__)))
+    if (
+		!isset( $_POST['custom_meta_box_nonce'] )
+		|| !wp_verify_nonce( $_POST['custom_meta_box_nonce'], basename(__FILE__) )
+		)
         return $post_id;
     // check autosave
     if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE)
@@ -266,6 +265,7 @@ function save_custom_meta($post_id) {
         }
     } // end foreach
 }
+
 add_action('save_post', 'save_custom_meta');
 
 
@@ -420,7 +420,7 @@ function dlp_breadcrumbs() {
 			*/
 		   rewind_posts();}
 		elseif (isset($_GET['paged']) && !empty($_GET['paged'])) {
-			echo '<span>' . __( 'Blog Archives' ) . '</span>';
+			echo '<span>' . __( 'Blog Archives', 'rrze-dlp' ) . '</span>';
 		}
 		elseif (is_search()) {
 			echo '<span>' . __( 'Search Results', 'rrze-dlp' ). '<span>';
@@ -521,6 +521,33 @@ function dlp_contextnav_front() {
 	}
 }
 
+//function dlp_show_ancestor() {
+//	$ancestors = get_ancestors( get_the_ID(), 'page' );
+//	print_r($ancestors);
+//	$root = end($ancestors);
+//	print_r($ancestors);
+//}
 
-
-
+function dlp_show_ancestor() {
+	global $post;
+	$pageId = '';
+    $menu_name = 'primary';
+	$locations = get_nav_menu_locations();
+	$menu = wp_get_nav_menu_object( $locations[ $menu_name ] );
+	$menuItems = wp_get_nav_menu_items($menu->term_id);
+        foreach($menuItems as $menuItem) {
+            if($menuItem->object_id == $post->ID && $menuItem->object == $post->post_type) {
+                $parentMenuId = $menuItem->menu_item_parent;
+                break;
+            }
+        }
+        foreach($menuItems as $menuItem) {
+            if($menuItem->ID == $parentMenuId && $menuItem->object == 'post') {
+                $pageId = $menuItem->object_id;
+                $menuId = $menuItem->ID;
+                break;
+            }
+        }
+	$content = '<div class="backto"><span> &#8592; ' . __('Back to', 'rrze-dlp') . ' </span><a href="' . get_page_link($pageId) . '" class="readmore">' . get_the_title($pageId) . '</a></div>';
+	echo $content;
+}

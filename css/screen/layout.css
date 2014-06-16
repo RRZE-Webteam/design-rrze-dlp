@@ -829,4 +829,14 @@
 		border-bottom: none;
 		background-color: inherit;
 	}
+	.backto {
+		border-top: 1px solid #cacacd;
+		margin-top: 10px;
+		color: #636571;
+		padding-top: 15px;
+	}
+	.backto span{
+		font-size: 0.8em;
+	}
+
 }
