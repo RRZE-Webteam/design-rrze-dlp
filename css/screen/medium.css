@@ -43,7 +43,9 @@
 		padding-right: 0;
 		padding-left: 15px;
 	}
-
+	footer.site-footer {
+		padding: 5px;
+	}
 	.site-footer .widget-wrapper {
 		width: 49%;
 	}

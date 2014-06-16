@@ -16,12 +16,119 @@
 	body {
 		font-size: 10pt;
 		padding: 0 5px;
+		font-family: 'Century Gothic', 'Avant Garde', Verdana, Helvetiva Neue, Helvetica, Arial, sans-serif;
 	}
-	#suche {
+	#searchform,
+	#breadcrumbs,
+	.backto,
+	.site-footer {
 		display:none;
 	}
-
+	.site-header img {
+		float:left;
+		margin-right: 10px;
+		margin-bottom: 10px;
+		max-width: 20%;
+		height: auto;
+	}
+	.site-title,
+	.site-description {
+		margin:0;
+		padding:0;
+	}
+	.site-header {
+		height: 80px;
+		margin-bottom: 20px;
+		border-bottom: 1px solid #cacacd;
+	}
 	h1,h2,h3,h4,h5,h6 {
 		page-break-after:avoid;
 	}
+	h1, h2, h3, h4 {
+		font-family: 'Palatino Linotype', 'Book Antiqua', 'Times New Roman', serif;
+		font-weight: normal;
+	}
+	h1 {
+		font-size: 1.7em;
+		line-height: 1.5em;
+		color: #004277;
+		margin-bottom: 5px;
+	}
+	h1 a:link,
+	h1 a:visited {
+		border-bottom: none;
+	}
+	h1.page-title {
+		font-size: 2em;
+	}
+	h1.entry-title {
+		clear: both;
+	}
+	h2 {
+		margin-top: 10px;
+		color: #295F9F;
+		font-size: 1.3em;
+	}
+
+	h3 {
+		color: #636269;
+		font-size: 1.1em;
+		font-style: italic;
+	}
+	a:link,
+	a:visited {
+        color:#3D3D3D;
+		text-decoration: none;
+		border-bottom: 1px solid #3D3D3D;
+    }
+
+	a:hover,
+    a:active,
+    a:focus {
+        background-color: #f1f0f2;
+		text-shadow: 1px 1px 0 #FFFFFF;
+		color: #295F9F;
+    }
+	a:link:after,
+	a:visited:after {
+		content: " (" attr(href) ") ";
+		font-size: .8em;
+	}
+	a.thumbnail-link:link:after,
+	a.thumbnail-link:visited:after,
+	h1 a:link:after,
+	h1 a:visited:after,
+	hgroup a:link:after,
+	hgroup a:visited:after,
+	.entry-meta a:link:after,
+	.entry-meta a:visited:after{
+		content: none;
+	}
+	a.thumbnail-link:link,
+	a.thumbnail-link:visited,
+	hgroup a:link,
+	hgroup a:visited {
+		border-bottom: none;
+	}
+	a.thumbnail-link img {
+		display: none;
+	}
+	.wp-post-image {
+		float: right;
+		margin: 0 0 10px 10px;
+		max-width: 25%;
+		height: auto;
+	}
+	#context-nav .preview {
+		clear: both;
+	}
+	#context-nav .entry-header h1 {
+		font-size: 1.3em;
+		margin-bottom: 0;
+		padding-bottom: 0;
+	}
+	#context-nav .entry-summary p {
+		margin: 0;
+	}
+
 }

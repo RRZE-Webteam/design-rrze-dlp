@@ -24,6 +24,9 @@
 	#main {
 		padding: 20px 15px;
 	}
+	footer.site-footer {
+		padding: 0px;
+	}
 
 
 }
@@ -33,10 +36,13 @@
 	header img {
 		width: 100px;
 	}
+	.site-header #searchform input[type="text"]:focus {
+		width: 140px;
+		margin-left: 0;
+    }
 	#main {
 		padding: 10px 5px;
 	}
-
 	#context-nav .preview,
 	#context-nav .preview:nth-child(3n+1),
 	#context-nav .preview:nth-child(2n),
