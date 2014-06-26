@@ -357,7 +357,7 @@ class SH_BreadCrumbWalker extends Walker{
      * @param int $current_page Menu item ID.
      * @param object $args
      */
-    function start_el(&$output, $item, $depth, $args) {
+    function start_el(&$output, $item, $depth = 0, $args = array(), $id = 0) { 
 
         //Check if menu item is an ancestor of the current page
         $classes = empty( $item->classes ) ? array() : (array) $item->classes;
@@ -374,7 +374,7 @@ class SH_BreadCrumbWalker extends Walker{
 
 			//Preceed with delimter for all but the first item.
             if( 0 != $depth )
-                $output .= $this->delimiter;
+                $output .= $this->delimiter; 
 
             //Link tag attributes
             $attributes  = ! empty( $item->attr_title ) ? ' title="'  . esc_attr( $item->attr_title ) .'"' : '';
