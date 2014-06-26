@@ -1,114 +1,72 @@
-<?php get_header(); ?>
-<?php 
-global $nav_menu_selected_id, $nav_path, $nav_post_id; 
-?>
-<div id="main">
+<?php
+/**
+ * The main template file.
+ *
+ * @package RRZE-DLP
+ * @since RRZE-DLP 2.0
+ */
 
-    <div id="container">
-        
-        <div id="content" role="main">
-        <?php if( ! empty( $nav_post_id ) ) : 
-            $post = get_post( $nav_post_id );
+get_header(); ?>
 
-            if( $post->post_type == 'post' )
-               query_posts( 'p=' . $post->ID );
-            elseif( $post->post_type == 'page' )
-               query_posts( 'page_id=' . $post->ID );
-
-        ?>
-            <?php while( have_posts() ) : the_post(); ?>
-
-                <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-
+<div id="primary" class="content-area">
+    <div id="content" class="site-content" role="main">
+		<?php if ( have_posts() ) : ?>
+		<?php /* Start the Loop */ ?>
+			<?php while ( have_posts() ) : the_post(); ?>
+				<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
                     <header class="entry-header">
-                        <h1><?php the_title(); ?></h1>
+                        <h1 class="entry-title"><a href="<?php the_permalink(); ?>" title="<?php printf( esc_attr__( 'Permalink to %s', 'rrze-dlp' ), the_title_attribute( 'echo=0' ) ); ?>" rel="bookmark"><?php the_title(); ?></a></h1>
                     </header>
+					<div class="entry-summary">
+						<?php
+						/* Include the Post-Format-specific template for the content.
+						* If you want to overload this in a child theme then include a file
+						* called content-___.php (where ___ is the Post Format name) and    that will be used instead.
+						*/
+						$custom_meta = get_post_meta( get_the_ID(), 'service' );
+					   // check if the custom field has a value
+					   if( ! empty( $custom_meta ) ) {
+						   echo '<p>' . $custom_meta[0] . '</p>';
+					   } else {
+						   the_excerpt(); } ?>
+					   <a href="<?php echo get_permalink(); ?>" class="readmore"><?php echo __('Read More...', 'rrze-dlp')?></a>
+					</div>
+					<footer class="entry-meta">
+						<?php if ( 'post' == get_post_type() ) : // Hide category and tag text for pages on Search ?>
+							<?php
+								/* translators: used between list items, there is a space after the comma */
+								$categories_list = get_the_category_list( __( ', ', 'rrze-dlp' ) );
+								if ( $categories_list ) :
+							?>
+							<span class="cat-links">
+								<?php printf( __( 'Posted in %1$s', 'rrze-dlp' ), $categories_list ); ?>
+							</span>
+							<?php endif; // End if categories ?>
 
-                    <div class="entry-content">
-                        <?php the_content( __( 'Weiterlesen <span class="meta-nav">&rarr;</span>', '_rrze' ) ); ?>
-                        <?php _rrze_the_fields(); ?>
-                        <?php wp_link_pages( array( 'before' => '<nav id="nav-pages"><div class="ym-wbox"><span>' . __( 'Seiten:', '_rrze' ) . '</span>', 'after' => '</div></nav>' ) ); ?>
-                    </div>
-                    
-                    <footer class="entry-meta">
-                        <?php
-                        $utility_text = '';
-                        $menu_list = _rrze_menu_items_list( get_the_ID() );
-                        $categories_list = get_the_category_list(', ');
-                        $tag_list = get_the_tag_list('', ', ');                        
+							<?php
+								/* translators: used between list items, there is a space after the comma */
+								$tags_list = get_the_tag_list( '', __( ', ', 'rrze-dlp' ) );
+								if ( $tags_list ) :
+							?>
+							<span class="sep"> | </span>
+							<span class="tag-links">
+								<?php printf( __( 'Tagged %1$s', 'rrze-dlp' ), $tags_list ); ?>
+							</span>
+							<?php endif; // End if $tags_list ?>
+						<?php endif; // End if 'post' == get_post_type() ?>
 
-                        if( '' != $menu_list )
-                            $utility_text .= sprintf( _n( 'Diese Seite wurde diesem Menü: %1$s zugeordnet.<br/>', 'Diese Seite wurde diesen Menüs: %1$s zugeordnet.<br/>', count( explode( ', ', $menu_list ) ), '_rrze' ), $menu_list );
+						<?php rrze_dlp_modified(); ?>
 
-                        if( '' != $categories_list )
-                            $utility_text .= sprintf( __( 'Kategorien: %1$s.<br/>', '_rrze' ), $categories_list );
-                                                
-                        if( '' != $tag_list )
-                            $utility_text .= sprintf( __( 'Schlagwörter: %1$s.<br/>', '_rrze' ), $tag_list );
-                        
-                        $utility_text .= sprintf( __( 'Diesen Artikel <a href="%1$s" title="Permalink zu %2$s" rel="bookmark"> zu Ihren Lesezeichen hinzufügen</a>.<br/>', '_rrze' ), esc_url( get_permalink()), the_title_attribute( 'echo=0' ) );
-                        
-                        printf( '%s%s<br/>', $utility_text, _rrze_last_modified_on() );
-                        ?>
-                        <?php edit_post_link( __( 'Bearbeiten', '_rrze' ), '<span class="edit-link">', '</span>' ); ?>
-                    </footer>
-
+						<?php edit_post_link( __( 'Edit', 'rrze-dlp' ), '<span class="sep"> | </span><span class="edit-link">', '</span>' ); ?>
+					</footer><!-- .entry-meta -->
                 </article>
 
-            <?php endwhile; ?>
-        <?php elseif( ! empty( $nav_menu_selected_id ) ) : ?>
-            <div class="entry-content">
-                <?php
-                $menus = get_option( '_rrze_nav_menus' );
-                $post_id = isset( $menus[$nav_menu_selected_id] ) ? $menus[$nav_menu_selected_id]['menu_description_id'] : 0;
-                $post = get_post( $post_id );
-                if( ! empty( $post ) && $post->post_type == 'page' ) :
-                    query_posts( 'page_id=' . $post->ID );
-                    
-                ?>
-                    <?php while( have_posts() ) : the_post(); ?>
-
-                        <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-
-                            <header class="entry-header">
-                                <h2><?php the_title(); ?></h2>
-                            </header>
-
-                            <div class="entry-content">
-                                <?php the_content( __( 'Weiterlesen <span class="meta-nav">&rarr;</span>', '_rrze' ) ); ?>
-                                <?php _rrze_the_fields(); ?>
-                                <?php wp_link_pages( array( 'before' => '<nav id="nav-pages"><div class="ym-wbox"><span>' . __( 'Seiten:', '_rrze' ) . '</span>', 'after' => '</div></nav>' ) ); ?>
-                            </div>
-
-                            <footer class="entry-meta">
-                                <?php
-                                $utility_text = '';
-                                $menu_list = _rrze_menu_items_list( get_the_ID() );
-                                $categories_list = get_the_category_list(', ');
-                                $tag_list = get_the_tag_list('', ', ');                        
-
-                                if( '' != $menu_list )
-                                    $utility_text .= sprintf( _n( 'Diese Seite wurde diesem Menü: %1$s zugeordnet.<br/>', 'Diese Seite wurde diesen Menüs: %1$s zugeordnet.<br/>', count( explode( ', ', $menu_list ) ), '_rrze' ), $menu_list );
-
-                                $utility_text .= sprintf( __( 'Diese Seite <a href="%1$s" title="Permalink zu %2$s" rel="bookmark"> zu Ihren Lesezeichen hinzufügen</a>.<br/>', '_rrze' ), esc_url( get_permalink()), the_title_attribute( 'echo=0' ) );
-
-                                printf( '%s%s<br/>', $utility_text, _rrze_last_modified_on() );
-                                ?>
-                                <?php edit_post_link( __( 'Bearbeiten', '_rrze' ), '<span class="edit-link">', '</span>' ); ?>
-                            </footer>
-
-                        </article>
-
-
-                    <?php endwhile; ?>
-                    
-                <?php endif; ?>
-            </div>
-        <?php endif; ?>
-        </div><!-- #content -->
-        
-    </div><!-- #container -->
-
-</div><!-- #main -->
+				 <?php //get_template_part( 'content', get_post_format() );	 ?>
+			<?php endwhile; ?>
+			<span class="page-nav-prev"><?php previous_posts_link(); ?></span>
+				<span class="page-nav-next"><?php next_posts_link(); ?></span>
+		<?php endif; ?>
+    </div><!-- #content .site-content -->
+</div><!-- #primary .content-area -->
 
 <?php get_footer(); ?>

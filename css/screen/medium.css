@@ -1,0 +1,58 @@
+/**
+ * Projekt Dienstleistungsportal
+ *
+ * Layoutstylesheet dlp - Mittlere Bildschirmgröße
+ *
+ * @author          RRZE-Team, Barbara Bothe
+ * @copyright       Copyright 2014, RRZE
+ * @license         CC-A 2.0 (http://creativecommons.org/licenses/by/2.0/)
+ * @link            http://www.vorlagen.uni-erlangen.de
+ * @package         css
+ * @version         2.0
+ * @lastmodified    04/2014
+*/
+
+@media screen and (max-width: 782px) {
+
+	.site-header #searchform {
+		position: static;
+		float: right;
+	}
+	#main {
+		padding: 20px 15px;
+	}
+	#context-nav .preview {
+		width: 49%;
+	}
+	#context-nav .preview:nth-child(3n) {
+		padding-right: 10px;
+		clear: none;
+	}
+	#context-nav .preview:nth-child(3n+1) {
+		border-left: 1px solid #CCCCCC;
+		clear: none;
+		padding-left: 10px;
+	}
+	#context-nav .preview:nth-child(2n+1) {
+	    padding-right: 15px;
+		padding-left: 0;
+		clear: left;
+		border-left: none;
+	}
+	#context-nav .preview:nth-child(2n) {
+		padding-right: 0;
+		padding-left: 15px;
+	}
+	footer.site-footer {
+		padding: 5px;
+	}
+	.site-footer .widget-wrapper {
+		width: 49%;
+	}
+	.site-footer .widget-wrapper:nth-child(3n) {
+		clear:left;
+		width: 100%;
+	}
+
+
+}

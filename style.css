@@ -4,9 +4,15 @@ Theme URI: http://github.com/RRZE-Webteam/Design-RRZE-DLP
 Author: RRZE-Webteam
 Author URI: http://blogs.fau.de/webworking
 Description: Das Dienstleistungsportfolio-Theme des Rechenzentrums.
-Tags: rrze, dlp
-Version: 1.1
+Tags: rrze, dlp, blue, grey, one-column, responsive-layout, accessibility-ready
+Version: 2.0
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
-Text Domain: _rrze
+Text Domain: rrze-dlp
 */
+
+/* import screen layout | Screen-Layout einbinden */
+@import url("css/screen/layout.css");
+@import url("css/screen/medium.css") screen and (max-width: 782px);
+@import url("css/screen/small.css") screen and (max-width: 600px);
+@import url("css/print/print.css") print;
