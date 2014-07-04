@@ -351,3 +351,29 @@ function rrze_dlp_modified() {
 }
 endif;
 
+
+
+/**
+ * Render custom fields
+ */
+function rrze_dlp_fields() {
+	global $post;
+	global $display_field;
+	global $field_label;
+	
+	
+
+	$custom_fields = get_post_meta( $post->ID);
+	$str = '';
+
+	foreach ($custom_fields as $key => $value) {
+		if ((!empty( $value[0]) && substr($key,0,1) !== "_")
+				&& ((is_user_logged_in() || (!is_user_logged_in() && $display_field[$key] == "1" )))) {
+			$str .= sprintf( '<h2>%s</h2>', $field_label[$key] );
+			$str .= sprintf( '<p>%s</p>', $value[0] );
+		}
+	}
+
+	echo $str;
+}
+

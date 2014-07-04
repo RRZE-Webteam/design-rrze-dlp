@@ -124,8 +124,8 @@ $custom_meta_fields = array(
         'label'=> 'Kontakt',
         'desc'  => 'ansonsten: DL-spezifisches Funktionspostfach',
         'id'    => 'kontakt',
-        'type'  => 'select',
-	'listdata' => $default_contactlist    
+        'type'  => 'text',
+	'options' => $default_contactlist    
     ),
 	array(
         'label'=> 'Abhängigkeiten',
@@ -159,7 +159,7 @@ $display_field = array(
  */
 
 	$field_label = array(
-		'service'			    => 'Service',
+	    'service'			    => 'Service',
 	    'beschreibung'		    => 'Beschreibung',
 	    'umfang'			    => 'Umfang',
 	    'links_zu_dokumentation'	    => 'Links zur Dokumentation',
