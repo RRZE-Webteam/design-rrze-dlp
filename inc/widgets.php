@@ -1,4 +1,25 @@
 <?php
+
+/**
+ * Register RRZE-DLP Widgets
+ */
+
+function rrze_dlp_widgets_init() {
+
+    register_sidebar( array(
+        'name' => __( 'Additional Information', 'rrze-dlp' ),
+        'id' => 'sidebar-footer',
+        'description'   => __( 'This area shows additional information in the footer. You can add useful links or other information displayed on every page. They are excluded from print layout.', 'rrze-dlp' ),
+        'before_widget' => '<div id="%1$s" class="widget-wrapper %2$s">',
+        'after_widget' => '</div>',
+        'before_title' => '<h2 class="widget-title">',
+        'after_title' => '</h2>',
+    ));
+
+}
+add_action( 'widgets_init', 'rrze_dlp_widgets_init' );
+
+
 class RRZE_Widget_Meta extends WP_Widget {
 
 	function __construct() {
