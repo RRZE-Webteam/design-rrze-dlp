@@ -124,7 +124,7 @@ $custom_meta_fields = array(
         'label'=> 'Kontakt',
         'desc'  => 'ansonsten: DL-spezifisches Funktionspostfach',
         'id'    => 'kontakt',
-        'type'  => 'text',
+        'type'  => 'textarea',
 	'options' => $default_contactlist    
     ),
 	array(
@@ -171,4 +171,26 @@ $display_field = array(
 	    'abhaengigkeiten'		    => 'Abhängigkeiten',
 	);
 	
-	
+	$kontaktdata = array(
+	    "kontakt_name"  => array(
+		'type'	=>  'text',
+		'title'	=>  'Name', 
+	    ),
+	    "kontakt_telefon"  => array(
+		'type'	=>  'text',
+		'title'	=>  'Telefon', 
+	    ),
+	    "kontakt_email"  => array(
+		'type'	=>  'email',
+		'title'	=>  'E-Mail-Adresse', 
+	    ),
+	    "kontakt_url"  => array(
+		'type'	=>  'url',
+		'title'	=>  'Webseite (URL)', 
+	    ),
+	    "kontakt_addresse"  => array(
+		'type'	=>  'textarea',
+		'title'	=>  'Postanschrift', 
+	    ),
+
+	);

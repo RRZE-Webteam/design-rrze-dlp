@@ -12,7 +12,9 @@ $options = rrze_dlp_initoptions();
     // adjusts variables for downwards comptability
 
 require_once ( get_stylesheet_directory() . '/inc/theme-options.php' );
-require( get_template_directory() . '/inc/custom-fields.php' );
+require_once( get_template_directory() . '/inc/custom-fields.php' );
+require_once ( get_stylesheet_directory() . '/inc/kontaktverwaltung.php' );
+
 
 if ( ! isset( $content_width ) )
     $content_width = 1170; /* pixels */
