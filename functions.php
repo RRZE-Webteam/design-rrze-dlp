@@ -367,15 +367,61 @@ function rrze_dlp_fields() {
 
 	$custom_fields = get_post_meta( $post->ID);
 	$str = '';
+	$known_kontaktid = esc_attr( get_post_meta( $post->ID, 'rrze_dlp_id-kontakt', true ) );
+
 
 	foreach ($custom_fields as $key => $value) {
 		if ((!empty( $value[0]) && substr($key,0,1) !== "_")
 				&& ((is_user_logged_in() || (!is_user_logged_in() && $display_field[$key] == "1" )))) {
-			$str .= sprintf( '<h2>%s</h2>', $field_label[$key] );
-			$str .= sprintf( '<p>%s</p>', $value[0] );
+		    
+			if ($known_kontaktid && $key == 'kontakt') {
+			    // Zeige Kontaktangabe aus Custim Field und nicht mehr alte Metadata
+			    $str .= rrze_dlp_display_kontakt($known_kontaktid);			    
+			} else {
+			    $str .= sprintf( '<h2>%s</h2>', $field_label[$key] );
+			    $str .= sprintf( '<p>%s</p>', $value[0] );
+			}
 		}
 	}
 
 	echo $str;
 }
+
+
+function rrze_dlp_updatedata($post_id, $fieldname, $type = 'text', $input = '') {
+    
+    $value= '';
+    switch($type) {
+        // text
+	case 'text':
+	    $value = sanitize_text_field( $input ); 
+	    break;
+	case 'textarea':
+	    $value =  $input ; 
+	    break;
+	case 'email':
+	    if (filter_var($input, FILTER_VALIDATE_EMAIL)) {
+		$value = $input;
+	    }
+	    break;
+	case 'url':
+	    if (filter_var($input, FILTER_VALIDATE_URL)) {
+		$value = $input;
+	    }	
+	    break;
+	case 'intval':
+	    $value = intval($input);
+	    break;
+    } //end switch
+    
+
+    $oldvalue = get_post_meta( $post_id, $fieldname, true );
+    if ( $value && $value != $oldvalue ) {
+	update_post_meta( $post_id, $fieldname, $value );
+    } elseif ( '' == $value && $oldvalue ) {
+	delete_post_meta( $post_id, $fieldname, $oldvalue );
+    } 
+    
+}
+
 

@@ -130,52 +130,9 @@ function rrze_dlp_kontakt_metabox_save( $post_id ) {
 	foreach($kontaktdata as $field => $value) {   
 	    rrze_dlp_updatedata($post_id, $field, $value['type'], $_POST[$field] );
 	}
-	/*	rrze_dlp_updatedata($post_id, 'kontakt_name', 'text', $_POST['kontakt_name'] );
-	rrze_dlp_updatedata($post_id, 'kontakt_telefon', 'text',$_POST['kontakt_telefon'] );
-	rrze_dlp_updatedata($post_id, 'kontakt_email', 'email',$_POST['kontakt_email'] );
-	rrze_dlp_updatedata($post_id, 'kontakt_url', 'url',$_POST['kontakt_url'] );
-	rrze_dlp_updatedata($post_id, 'kontakt_addresse', 'text',$_POST['kontakt_addresse'] );
-	*/
+	
 }
 add_action( 'save_post', 'rrze_dlp_kontakt_metabox_save' );
-
-
-function rrze_dlp_updatedata($post_id, $fieldname, $type = 'text', $input = '') {
-    
-    $value= '';
-    switch($type) {
-        // text
-	case 'text':
-	    $value = sanitize_text_field( $input ); 
-	    break;
-	case 'textarea':
-	    $value =  $input ; 
-	    break;
-	case 'email':
-	    if (filter_var($input, FILTER_VALIDATE_EMAIL)) {
-		$value = $input;
-	    }
-	    break;
-	case 'url':
-	    if (filter_var($input, FILTER_VALIDATE_URL)) {
-		$value = $input;
-	    }	
-	    break;
-	case 'intval':
-	    $value = intval($input);
-	    break;
-    } //end switch
-    
-    $oldvalue = get_post_meta( $post_id, $fieldname, true );
-
-    if ( $value && '' == $oldvalue )
-	add_post_meta( $post_id, $fieldname, $value, true );
-    elseif ( $value && $value != $oldvalue )
-	update_post_meta( $post_id, $fieldname, $value );
-    elseif ( '' == $value && $oldvalue )
-	delete_post_meta( $post_id, $fieldname, $oldvalue );
-}
-
 
 
 
@@ -191,23 +148,25 @@ function rrze_dlp_display_kontakt ($post_id = 0) {
     $kontakt_email = get_post_meta( $post_id, 'kontakt_email', true );
 
     $out = "<div class=\"kontakt\">\n";
-    $out .= "<h2>Kontakt $kontakt_name</h2>\n";
+    $out .= "<h2>Kontakt</h2><h3>$kontakt_name</h3>\n";
    
     $c = '';
-    if (isset($kontakt_email)) {
+    if (isset($kontakt_email) && !empty($kontakt_email)) {
 	$c .= "<li>E-Mail: <a class=\"email\" href=\"mailto:$kontakt_email\">$kontakt_email</a></li>\n";
     }
-    if (isset($kontakt_telefon)) {
+    if (isset($kontakt_telefon) && !empty($kontakt_telefon)) {
 	$c .= "<li>Telefon: <span class=\"tel\">$kontakt_telefon</span></li>\n";
     }
-    if (isset($kontakt_url)) {
+    if (isset($kontakt_url) && !empty($kontakt_url)) {
 	$c .= "<li>Web: <a class=\"url\" href=\"$kontakt_url\">$kontakt_url</a></li>\n";
     }
-    if (isset($kontakt_addresse)) {
+    if (isset($kontakt_addresse) && !empty($kontakt_addresse)) {
 	$c .= "<li>Adresse: <address>$kontakt_addresse</address></li>\n";
     }
     if (strlen($c)>1) {
+	$out .= "<ul>";
 	$out .= $c;
+	$out .= "</ul>";
 	$out .= "</div>\n";
     } else {
 	$out = '';
@@ -349,13 +308,11 @@ function rrze_dlp_save_post_class_meta( $post_id, $post ) {
 	$newid = ( isset( $_POST['rrze_dlp_id-kontakt'] ) ? sanitize_key( $_POST['rrze_dlp_id-kontakt'] ) : '' );
 	$oldid = get_post_meta( $post_id, 'rrze_dlp_id-kontakt', true );
 
-	if ( $newid && '' == $oldid )
-		add_post_meta( $post_id, 'rrze_dlp_id-kontakt', $newid, true );
-	elseif ( $newid && $newid != $oldid )
+	if ( $newid && $newid != $oldid ) {
 		update_post_meta( $post_id, 'rrze_dlp_id-kontakt', $newid );
-	elseif ( '' == $newid && $oldid )
+	} elseif ( '' == $newid && $oldid ) {
 		delete_post_meta( $post_id, 'rrze_dlp_id-kontakt', $oldid );
-	
+	}
 
 
 }

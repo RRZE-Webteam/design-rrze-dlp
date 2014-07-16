@@ -125,7 +125,6 @@ $custom_meta_fields = array(
         'desc'  => 'ansonsten: DL-spezifisches Funktionspostfach',
         'id'    => 'kontakt',
         'type'  => 'textarea',
-	'options' => $default_contactlist    
     ),
 	array(
         'label'=> 'Abhängigkeiten',
