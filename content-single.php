@@ -13,7 +13,31 @@
 	<div class="entry-content">
 		<?php
 		if ( has_post_thumbnail() ) {	the_post_thumbnail(); }
-		the_content();
+		
+		$beschreibung = get_post_meta($post->ID, 'beschreibung', true);
+		$kurzbeschreibung = get_post_meta($post->ID, 'service', true);
+
+		$content = apply_filters( 'the_content', get_the_content() );	
+		$content = str_replace( ']]>', ']]&gt;', $content );
+		
+		
+		if (isset($kurzbeschreibung) && (!empty($kurzbeschreibung))) {
+		    echo $kurzbeschreibung;
+		}
+		
+		if (isset($content) && (strlen($content)>2)) {
+		    if (!empty($kurzbeschreibung)) {
+			echo "<h2>Beschreibung</h2>";
+		    }
+		    echo $content;
+		} elseif (isset($beschreibung) && (!empty($beschreibung))) {
+		    if (!empty($kurzbeschreibung)) {
+			echo "<h2>Beschreibung</h2>";
+		    }
+		    echo $beschreibung;
+		}
+		
+		
 		if (rrze_dlp_fields() != '') { rrze_dlp_fields();}
 		wp_link_pages( array( 'before' => '<div class="page-links">' . __( 'Pages:', 'rrze-dlp' ), 'after' => '</div>' ) ); ?>
     </div><!-- .entry-content -->

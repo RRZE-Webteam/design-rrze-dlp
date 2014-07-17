@@ -16,7 +16,24 @@ function add_custom_meta_box() {
 }
 add_action('add_meta_boxes', 'add_custom_meta_box');
 
-
+/* 
+function rrze_dlp_editor_content( $content ) {
+    global $post;
+ 
+    if ( empty( $content ) ) {
+	
+	return    var_dump($args);
+	  $meta = get_post_meta($post->ID, 'beschreibung', true);
+	  if ($meta) {
+	      return $meta;
+	  } 
+	  
+    } else {
+	return $content;
+    }
+}
+add_filter( 'the_editor_content', 'rrze_dlp_editor_content' );
+*/
 
 // The Callback
 function show_custom_meta_box() {
@@ -27,16 +44,43 @@ function show_custom_meta_box() {
 
     $known_kontaktid = esc_attr( get_post_meta( $post->ID, 'rrze_dlp_id-kontakt', true ) );	    
     // Begin the field table and loop
+    $content = apply_filters( 'the_content', get_the_content() );	
+    $content = str_replace( ']]>', ']]&gt;', $content );
+    
+    $args = array(
+    'teeny' => true,
+    'quicktags' => true,
+    'media_buttons' => false,
+    );
+    
     foreach ($custom_meta_fields as $field) {
         // get value of this field if it exists for this post
         $meta = get_post_meta($post->ID, $field['id'], true);
         // begin a table row with
 	
-	if ($known_kontaktid && $field['id'] == 'kontakt' && $meta) {
-	   echo '<h4><label for="'.$field['id'].'">'.$field['label'].'</label></h4>';
-	   echo "<p><strong>Bitte nutzen Sie das Auswahlfeld unten.</strong><br>";
-	   echo "Veraltreter Eintrag: </p>";
-	   echo "<em>$meta</em>";
+	
+	    
+	if ($field['id'] == 'kontakt') {	    
+	    if ($known_kontaktid && $meta) {
+		echo '<h4><label for="'.$field['id'].'">'.$field['label'].'</label></h4>';
+		echo "<p><strong>Bitte nutzen Sie das Auswahlfeld unten.</strong><br>";
+		echo "Veralteter Eintrag: </p>";
+		echo "<em>$meta</em>";
+	    }	
+	} elseif ($field['id'] == 'beschreibung') {
+	    
+	    if ($content) {
+		// Zeige kein Eingabefeld und Warnung und lass es so loeschen, da alles schon in
+		// Content steht
+	    } elseif ($meta) {		
+		 echo '<h4><label for="'.$field['id'].'">'.$field['label'].'</label></h4>';
+		 echo "<p><strong>Bitte nutzen Sie das Eingabefeld ganz oben für die Beschreibung</strong>. "
+		 . "<br>Kopieren Sie den Inhalt dieses Feldes bitte nach oben.</p>";
+		 
+		 echo '<span class="description">'.$field['desc'].'</span><br />';
+		 wp_editor($meta,'beschreibung',$args);
+		 
+	    }
 	} else {
 	    echo '<h4><label for="'.$field['id'].'">'.$field['label'].'</label></h4>';
 	    echo "<div>";
@@ -49,7 +93,7 @@ function show_custom_meta_box() {
 		    // textarea
 		    case 'textarea':
 			    echo '<span class="description">'.$field['desc'].'</span><br />';
-			    wp_editor($meta,$field['id']);
+			    wp_editor($meta,$field['id'],$args);
 			    break;
 		    // textarea ohne WYSIWYG
 		    /*case 'textarea':
@@ -103,6 +147,8 @@ function save_custom_meta($post_id) {
         } elseif (!current_user_can('edit_post', $post_id)) {
             return $post_id;
     }
+
+    
     foreach ($custom_meta_fields as $field) {
 	    rrze_dlp_updatedata($post_id, $field['id'], $field['type'], $_POST[$field['id']] );
     }

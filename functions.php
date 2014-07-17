@@ -362,28 +362,34 @@ function rrze_dlp_fields() {
 	global $post;
 	global $display_field;
 	global $field_label;
-	
-	
-
-	$custom_fields = get_post_meta( $post->ID);
+	global $custom_meta_fields;
+	  
 	$str = '';
 	$known_kontaktid = esc_attr( get_post_meta( $post->ID, 'rrze_dlp_id-kontakt', true ) );
 
 
-	foreach ($custom_fields as $key => $value) {
-		if ((!empty( $value[0]) && substr($key,0,1) !== "_")
+	
+	foreach ($custom_meta_fields as $field) {
+	    $key = $field['id'];
+	    $value = get_post_meta($post->ID, $field['id'], true);
+		if ( !empty( $value) 
 				&& ((is_user_logged_in() || (!is_user_logged_in() && $display_field[$key] == "1" )))) {
 		    
 			if ($known_kontaktid && $key == 'kontakt') {
 			    // Zeige Kontaktangabe aus Custim Field und nicht mehr alte Metadata
-			    $str .= rrze_dlp_display_kontakt($known_kontaktid);			    
+			//    $str .= rrze_dlp_display_kontakt($known_kontaktid);	
+
+			} elseif (($key == 'beschreibung')||($key == 'service')) {    
+			   // wurden als erstes oben angefuegt
 			} else {
 			    $str .= sprintf( '<h2>%s</h2>', $field_label[$key] );
-			    $str .= sprintf( '<p>%s</p>', $value[0] );
+			    $str .= sprintf( '<p>%s</p>', $value );
 			}
 		}
 	}
-
+	if (isset($known_kontaktid) && !empty($known_kontaktid)) {
+	    $str .= rrze_dlp_display_kontakt($known_kontaktid);	
+	}
 	echo $str;
 }
 
