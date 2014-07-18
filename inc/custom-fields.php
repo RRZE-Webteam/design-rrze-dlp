@@ -88,7 +88,7 @@ function show_custom_meta_box() {
 		    // text
 		    case 'text':
 			    echo '<span class="description">'.$field['desc'].'</span><br />'
-				    .'<input type="text" name="'.$field['id'].'" id="'.$field['id'].'" value="'.$meta.'" size="30" />';
+				    .'<input class="widefat" type="text" name="'.$field['id'].'" id="'.$field['id'].'" value="'.$meta.'" size="120" />';
 			    break;
 		    // textarea
 		    case 'textarea':

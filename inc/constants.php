@@ -76,7 +76,7 @@ $custom_meta_fields = array(
         'label'=> 'Service',
         'desc'  => 'Kurzbeschreibung der DL (1 Satz)',
         'id'    => 'service',
-        'type'  => 'textarea'
+        'type'  => 'text'
     ),
 	array(
         'label'=> 'Beschreibung',
@@ -128,7 +128,7 @@ $custom_meta_fields = array(
     ),
 	array(
         'label'=> 'Abhängigkeiten',
-        'desc'  => 'andere DL von denen diese (als Vorbedingung) abhängig ist] Aus WIKI: «TODO: Abhängigkeiten klären durchgängiges Nummerierungsssystem - angelehnt an die KLR?»',
+        'desc'  => 'andere DL von denen diese (als Vorbedingung) abhängig ist]',
         'id'    => 'abhaengigkeiten',
         'type'  => 'textarea'
     )
@@ -192,4 +192,44 @@ $display_field = array(
 		'title'	=>  'Postanschrift', 
 	    ),
 
+	);
+
+	$kostendata = array(
+	    'artikelnummer' => array(
+		'type'	=> 'text',
+		'title'	=> 'Artikelnummer'
+	    ),
+	    'einheit' => array(
+		'type'	=> 'number',
+		'title'	=> 'Abrechnungseinheit'
+	    ),
+	    'einheitbez' => array(
+		'type'	=> 'text',
+		'title'	=> 'Einheitenbezeichnung (Monat, Jahr, einmalig, ...)'
+	    ),
+	    'titel' => array(
+		'type'	=> 'text',
+		'title'	=> 'Beschreibung'
+	    ),
+	    'desc' => array(
+		'type'	=> 'textarea',
+		'title'	=> 'Beschreibung'
+	    ),
+	    'preis_kg1'	=> array(
+		'type'	=> 'text',
+		'title'	=> 'Preis Kostengruppe I'
+	    ),
+	     'preis_kg2'	=> array(
+		'type'	=> 'text',
+		'title'	=> 'Preis Kostengruppe II'
+	    ),
+	     'preis_kg3'	=> array(
+		'type'	=> 'text',
+		'title'	=> 'Preis Kostengruppe III'
+	    ),
+	     'preis_kg4'	=> array(
+		'type'	=> 'text',
+		'title'	=> 'Preis Kostengruppe IV'
+	    ),
+	    
 	);
