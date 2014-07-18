@@ -10,6 +10,7 @@
 require( get_template_directory() . '/inc/constants.php' );
 $options = rrze_dlp_initoptions();
     // adjusts variables for downwards comptability
+require_once ( get_stylesheet_directory() . '/inc/widgets.php' );
 
 require_once ( get_stylesheet_directory() . '/inc/theme-options.php' );
 require_once( get_template_directory() . '/inc/custom-fields.php' );

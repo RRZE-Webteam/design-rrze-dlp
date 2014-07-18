@@ -69,6 +69,9 @@
     p {
 		margin: 5px 0 10px;
 	}
+	address {
+	    white-space: pre;
+	}
 	ul, ol {
 		margin-left: 30px;
 		margin-bottom: 10px;
@@ -554,6 +557,11 @@
         position:relative;
     }
 
+    .kontakt ul li {
+	
+    }
+    
+    
     footer.site-footer {
         position:relative;
         padding: 15px;
