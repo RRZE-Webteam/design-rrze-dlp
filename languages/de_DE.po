@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Design RRZE-DLP v2.0\n"
+"Project-Id-Version: Design RRZE-DLP v2.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2014-04-07 15:43:14+0000\n"
+"PO-Revision-Date: 2014-07-18 13:57:57+0000\n"
 "Last-Translator: zo95zofo <barbara.bothe@fau.de>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -20,66 +20,80 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Textdomain-Support: yes"
 
+#: category.php:26
 #: content.php:10
+#: index.php:18
+#: tag.php:26
 #, php-format
 #@ rrze-dlp
 msgid "Permalink to %s"
 msgstr "Permalink zu %s"
 
-#: content.php:25
+#: content.php:20
+#: functions.php:213
+#: functions.php:215
+#: functions.php:252
+#: functions.php:254
 #@ rrze-dlp
 msgid "Continue reading <span class=\"meta-nav\">&rarr;</span>"
 msgstr "Weiterlesen <span class=\"meta-nav\">&rarr;</span>"
 
-#: content-single.php:19
-#: content.php:26
+#: content-page.php:20
+#: content-single.php:42
+#: content.php:22
+#: image.php:86
+#: tag.php:37
 #@ rrze-dlp
 msgid "Pages:"
 msgstr "Seiten:"
 
 #. translators: used between list items, there is a space after the comma
-#: content-single.php:25
-#: content-single.php:28
-#: content.php:34
-#: content.php:44
+#. translators: used between list items, there is a space after the comma
+#: category.php:43
+#: category.php:53
+#: content-single.php:47
+#: content-single.php:50
+#: content.php:30
+#: content.php:40
+#: index.php:38
+#: index.php:48
+#: tag.php:44
+#: tag.php:54
 #@ rrze-dlp
 msgid ", "
 msgstr ", "
 
-#: content.php:38
+#: category.php:47
+#: content.php:34
+#: index.php:42
+#: tag.php:48
 #, php-format
 #@ rrze-dlp
 msgid "Posted in %1$s"
 msgstr "Kategorien:  %1$s"
 
-#: content.php:49
+#: category.php:58
+#: content.php:45
+#: index.php:53
+#: tag.php:59
 #, php-format
 #@ rrze-dlp
 msgid "Tagged %1$s"
 msgstr "Schlagwörter: %1$s"
 
-#: content.php:56
-#@ rrze-dlp
-msgid "Leave a comment"
-msgstr "Kommentar schreiben"
-
-#: content.php:56
-#@ rrze-dlp
-msgid "1 Comment"
-msgstr "1 Kommentar"
-
-#: content.php:56
-#@ rrze-dlp
-msgid "% Comments"
-msgstr "% Kommentare"
-
-#: content-single.php:57
-#: content.php:59
+#: category.php:65
+#: content-page.php:21
+#: content-single.php:69
+#: content.php:52
+#: image.php:34
+#: image.php:91
+#: index.php:60
+#: tag.php:66
 #@ rrze-dlp
 msgid "Edit"
 msgstr "Bearbeiten"
 
-#: functions.php:51
+#: functions.php:29
 #@ rrze-dlp
 msgid "Primary Menu"
 msgstr "Hauptmenü"
@@ -90,23 +104,15 @@ msgstr "Hauptmenü"
 msgid "Page %s"
 msgstr "Seite %s"
 
-#: header.php:61
-#@ rrze-dlp
-msgid "Menu"
-msgstr "Menü"
-
-#: header.php:63
-#@ rrze-dlp
-msgid "Skip to content"
-msgstr "Zum Inhalt springen"
-
-#: inc/template-tags.php:24
+#: functions.php:351
 #, php-format
 #@ rrze-dlp
 msgid "View all posts by %s"
 msgstr "Alle Beiträge von %s ansehen."
 
+#: category.php:79
 #: no-results.php:14
+#: tag.php:80
 #@ rrze-dlp
 msgid "Nothing Found"
 msgstr "Nichts gefunden."
@@ -127,38 +133,289 @@ msgstr "Leider hat die Suche keine Treffer ergeben. Versuchen Sie es erneut mit 
 msgid "It seems we can&rsquo;t find what you&rsquo;re looking for. Perhaps searching can help."
 msgstr "Leider gibt es diesen Inhalt nicht. Versuchen Sie es über die Suche."
 
-#: content-single.php:35
+#: content-single.php:57
 #, php-format
 #@ rrze-dlp
 msgid "Bookmark the <a href=\"%3$s\" title=\"Permalink to %4$s\" rel=\"bookmark\">permalink</a>."
 msgstr "Lesezeichen zum <a href=\"%3$s\" title=\"Permalink zu %4$s\" rel=\"bookmark\">Permalink</a>"
 
-#: content-single.php:33
-#, php-format
-#@ rrze-dlp
-msgid "Tags: %2$s<br/>Bookmark the <a href=\"%3$s\" title=\"Permalink to %4$s\" rel=\"bookmark\">permalink</a>."
-msgstr "Schlagwörter: %2$s<br/>Lesezeichen zum <a href=\"%3$s\" title=\"Permalink zu %4$s\" rel=\"bookmark\">Permalink</a>"
-
-#: content-single.php:43
+#: content-single.php:55
 #, php-format
 #@ rrze-dlp
 msgid "Categories: %1$s<br />Bookmark the <a href=\"%3$s\" title=\"Permalink to %4$s\" rel=\"bookmark\">permalink</a>."
 msgstr "Kategorien: %1$s<br />Lesezeichen zum <a href=\"%3$s\" title=\"Permalink zu %4$s\" rel=\"bookmark\">Permalink</a>"
 
-#: content-single.php:41
+#: content-single.php:53
 #, php-format
 #@ rrze-dlp
 msgid "Categories: %1$s<br />Tags: %2$s<br/>Bookmark the <a href=\"%3$s\" title=\"Permalink to %4$s\" rel=\"bookmark\">permalink</a>."
 msgstr "Kategorien: %1$s<br />Tags: %2$s<br/>Lesezeichen zum <a href=\"%3$s\" title=\"Permalink zu %4$s\" rel=\"bookmark\">Permalink</a>"
 
-#: inc/template-tags.php:18
-#, php-format
-#@ rrze-dlp
-msgid "Modified: <br /><a href=\"%1$s\" title=\"%2$s\" rel=\"bookmark\"><time class=\"entry-date\" datetime=\"%3$s\" pubdate>%4$s</time></a><span class=\"byline\"> by <span class=\"author vcard\"><a class=\"url fn n\" href=\"%5$s\" title=\"%6$s\" rel=\"author\">%7$s</a></span></span>"
-msgstr "<br />Zuletzt bearbeitet am <a href=\"%1$s\" title=\"%2$s\" rel=\"bookmark\"><time class=\"entry-date\" datetime=\"%3$s\" pubdate>%4$s</time></a><span class=\"byline\"> von <span class=\"author vcard\"><a class=\"url fn n\" href=\"%5$s\" title=\"%6$s\" rel=\"author\">%7$s</a></span></span>"
-
-#: inc/template-tags.php:22
+#: functions.php:349
 #@ rrze-dlp
 msgid "F j, Y"
 msgstr "j. F Y"
+
+#: 404.php:16
+#@ rrze-dlp
+msgid "Oops! That page can&rsquo;t be found."
+msgstr "Die von Ihnen gesuchte Seite wurde nicht gefunden."
+
+#: 404.php:20
+#@ rrze-dlp
+msgid "It looks like nothing was found at this location. Perhaps searching can help."
+msgstr "Die Suche fand keinen treffer mit den gewählten Suchbegriff."
+
+#: archive.php:20
+#, php-format
+#@ rrze-dlp
+msgid "Category Archives: %s"
+msgstr "Kategorie: %s"
+
+#: archive.php:23
+#: tag.php:11
+#, php-format
+#@ rrze-dlp
+msgid "Tag Archives: %s"
+msgstr "Schlagworte:  %s"
+
+#: archive.php:30
+#: functions.php:158
+#, php-format
+#@ rrze-dlp
+msgid "Author Archives: %s"
+msgstr "Autorarchiv: %s"
+
+#: archive.php:38
+#: functions.php:145
+#, php-format
+#@ rrze-dlp
+msgid "Daily Archives: %s"
+msgstr "Tagesarchiv: %s"
+
+#: archive.php:41
+#: functions.php:148
+#, php-format
+#@ rrze-dlp
+msgid "Monthly Archives: %s"
+msgstr "Monatsarchiv: %s"
+
+#: archive.php:44
+#: functions.php:151
+#, php-format
+#@ rrze-dlp
+msgid "Yearly Archives: %s"
+msgstr "Jahresarchiv: %s"
+
+#: archive.php:47
+#@ rrze-dlp
+msgid "Archives"
+msgstr "Archiv"
+
+#: category.php:11
+#, php-format
+#@ rrze-dlp
+msgid "Archive by category: %s"
+msgstr "Archiv zur Kategorie: %s"
+
+#: category.php:36
+#: index.php:32
+#: tag.php:36
+#@ rrze-dlp
+msgid "Read More..."
+msgstr "Weiterlesen..."
+
+#: category.php:83
+#: tag.php:84
+#@ rrze-dlp
+msgid "Sorry, but there are no results in this archive."
+msgstr "Es konnten keine Treffer gefunden werden."
+
+#: footer.php:17
+#: inc/widgets.php:12
+#@ rrze-dlp
+msgid "This area shows additional information in the footer. You can add useful links or other information displayed on every page. They are excluded from print layout."
+msgstr "Informationen im Fußteil der Seite. Diese werden beim Druck nicht angezeigt."
+
+#: functions.php:87
+#, php-format
+#@ rrze-dlp
+msgid "Go to \"%s\""
+msgstr "Gehe zu  \"%s\""
+
+#: functions.php:165
+#@ rrze-dlp
+msgid "Blog Archives"
+msgstr "Beitragsarchiv"
+
+#: functions.php:168
+#@ rrze-dlp
+msgid "Search Results"
+msgstr "Suchergebnisse"
+
+#: functions.php:293
+#@ rrze-dlp
+msgid "Back to"
+msgstr "Zurück zu"
+
+#: functions.php:345
+#, php-format
+#@ rrze-dlp
+msgid "<br />Modified: <time class=\"entry-date\" datetime=\"%3$s\" pubdate>%4$s</time>"
+msgstr "<br />Letzte Änderung: <time class=\"entry-date\" datetime=\"%3$s\" pubdate>%4$s</time>"
+
+#: image.php:24
+#, php-format
+#@ rrze-dlp
+msgid "Published <span class=\"entry-date\"><time class=\"entry-date\" datetime=\"%1$s\" pubdate>%2$s</time></span> at <a href=\"%3$s\" title=\"Link to full-size image\">%4$s &times; %5$s</a> in <a href=\"%6$s\" title=\"Return to %7$s\" rel=\"gallery\">%7$s</a>"
+msgstr "Veröffentlicht am <span class=\"entry-date\"><time class=\"entry-date\" datetime=\"%1$s\" pubdate>%2$s</time></span> at <a href=\"%3$s\" title=\"Link to full-size image\">%4$s &times; %5$s</a> in <a href=\"%6$s\" title=\"Return to %7$s\" rel=\"gallery\">%7$s</a>"
+
+#: image.php:38
+#@ rrze-dlp
+msgid "&larr; Previous"
+msgstr "&larr; Vor"
+
+#: image.php:39
+#@ rrze-dlp
+msgid "Next &rarr;"
+msgstr "&larr; Weiter"
+
+#: inc/kontaktverwaltung.php:10
+#: inc/kontaktverwaltung.php:11
+#@ rrze-dlp
+msgctxt "Verwaltung von Kontaktinformationen"
+msgid "Kontaktinfos"
+msgstr ""
+
+#: inc/kontaktverwaltung.php:12
+#@ rrze-dlp
+msgid "Kontaktinfos"
+msgstr ""
+
+#: inc/kontaktverwaltung.php:15
+#@ rrze-dlp
+msgid "Kontakt"
+msgstr ""
+
+#: inc/kontaktverwaltung.php:16
+#@ rrze-dlp
+msgid "Verwaltung von Kontaktinformationen"
+msgstr ""
+
+#: inc/kontaktverwaltung.php:64
+#@ rrze-dlp
+msgid "Kontakt Information"
+msgstr ""
+
+#: inc/kontaktverwaltung.php:230
+#@ rrze-dlp
+msgid "Kontakt Informationen"
+msgstr ""
+
+#: inc/kontaktverwaltung.php:275
+#@ rrze-dlp
+msgid "Keine Kontaktdaten verf&uuml;gbar."
+msgstr ""
+
+#: inc/kostenverwaltung.php:10
+#: inc/kostenverwaltung.php:11
+#@ rrze-dlp
+msgctxt "Verwaltung von Kosten und Preisen zu Dienstleistungen"
+msgid "Kosten"
+msgstr ""
+
+#: inc/kostenverwaltung.php:12
+#: inc/kostenverwaltung.php:15
+#@ rrze-dlp
+msgid "Kosten"
+msgstr ""
+
+#: inc/kostenverwaltung.php:16
+#@ rrze-dlp
+msgid "Verwaltung von Kosten und Preisen zu Dienstleistungen"
+msgstr ""
+
+#: inc/kostenverwaltung.php:64
+#@ rrze-dlp
+msgid "kosten Information"
+msgstr ""
+
+#: inc/kostenverwaltung.php:230
+#@ rrze-dlp
+msgid "kosten Informationen"
+msgstr ""
+
+#: inc/kostenverwaltung.php:275
+#@ rrze-dlp
+msgid "Keine kostendaten verf&uuml;gbar."
+msgstr ""
+
+#: inc/theme-options.php:37
+#@ rrze-dlp
+msgid "Settings have been updated."
+msgstr ""
+
+#: inc/theme-options.php:120
+#@ rrze-dlp
+msgid "Update settings"
+msgstr ""
+
+#: inc/widgets.php:10
+#@ rrze-dlp
+msgid "Additional Information"
+msgstr ""
+
+#: inc/widgets.php:26
+#@ rrze-dlp
+msgid "Login/Logout, Admin"
+msgstr ""
+
+#: inc/widgets.php:27
+#: inc/widgets.php:32
+#@ rrze-dlp
+msgid "Meta"
+msgstr ""
+
+#: inc/widgets.php:58
+#: inc/widgets.php:108
+#@ rrze-dlp
+msgid "Title:"
+msgstr ""
+
+#: inc/widgets.php:66
+#@ rrze-dlp
+msgid "Your tags in a tag cloud"
+msgstr ""
+
+#: inc/widgets.php:67
+#@ rrze-dlp
+msgid "Tag Cloud"
+msgstr ""
+
+#: inc/widgets.php:79
+#@ rrze-dlp
+msgid "Tags"
+msgstr "Schlagworte"
+
+#: inc/widgets.php:110
+#@ rrze-dlp
+msgid "Taxonomy:"
+msgstr ""
+
+#: search.php:17
+#, php-format
+#@ rrze-dlp
+msgid "Search Results for: %s"
+msgstr "Suchergebnisse für: %s"
+
+#: searchform.php:10
+#: searchform.php:12
+#@ rrze-dlp
+msgid "Search"
+msgstr "Suchen"
+
+#: searchform.php:11
+#@ rrze-dlp
+msgid "Search &hellip;"
+msgstr "Suchen &hellip;"
 

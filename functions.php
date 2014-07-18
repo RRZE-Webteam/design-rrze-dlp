@@ -6,6 +6,12 @@
  * @since RRZE-DLP 2.0
  */
 
+load_theme_textdomain('rrze-dlp', get_template_directory() . '/languages');
+$locale = get_locale();
+$locale_file = get_template_directory() . "/languages/$locale.php";
+if ( is_readable( $locale_file ) )
+        require_once( $locale_file );
+
 
 require( get_template_directory() . '/inc/constants.php' );
 $options = rrze_dlp_initoptions();
@@ -22,8 +28,6 @@ if ( ! isset( $content_width ) )
 
 if ( ! function_exists( 'rrze_dlp_setup' ) ):
 function rrze_dlp_setup() {
-
-    load_theme_textdomain( 'rrze-dlp', get_template_directory() . '/languages' );
 
     register_nav_menus( array(
         'primary' => __( 'Primary Menu', 'rrze-dlp' ),
