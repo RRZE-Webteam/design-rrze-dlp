@@ -12,63 +12,6 @@ $defaultoptions = array(
 );
 
 
-$default_contactlist = array(
-    'allgemeine'    => array(
-	'title'	=> 'Allgemeine Adressen',
-	'list'	=> array(
-	    'rrze-zentrale@fau.de'	=> 'Zentrale Kontaktadresse des RRZE',
-	    'rrze-sekretariat@fau.de'	=> 'Sekretariat',
-	    'rrze-azubis@fau.de'	=> 'Sammeladresse aller derzeit am RRZE beschäftigten Azubis',	    
-	    'abuse@fau.de'		=> 'Meldung von sicherheitsrelevanten Vorfällen',
-	)
-    ),
-    'abteilungen'    => array(
-	'title'	=> 'Abteilungs- oder Gruppenbezogene Adressen',
-	'list'	=> array(
-	    'rrze-mac@fau.de'		=> 'Anfragen an die Mac Gruppe',
-	    'rrze-windows@fau.de'	=> 'Anfragen zu Windows-Systemen',
-	    'hpc@fau.de'		=> 'HPC-Gruppe',
-	    'konwihr@fau.de'		=> 'KONWIHR-Geschäftsstelle',
-	    'rrze-mmz@fau.de'		=> 'Multimediazentrum',
-	    'schulungszentrum@fau.de'	=> 'Schulungszentrum',
-	    'rrze-redaktion@fau.de'	=> 'RRZE Redaktion',
-	    'rrze-izi@fau.de'		=> 'IZ Innenstadt',
-	    'rrze-izn@fau.de'		=> 'IZ Nürnberg',
-	    'rrze-izh@fau.de'		=> 'IZ Halbmondstrasse',
-	)
-    ),
-    'dienste'    => array(
-	'title'	=> 'Spezialdienste',
-	'list'	=> array(
-	    'backup@rrze.fau.de'	=> 'Backup- / Archvierungs-Anfragen',
-	    'linux-support@fau.de'	=> 'Sammeladresse für Anfragen hinsichtlich LINUX',
-	    'rrze-poster@fau.de'	=> 'Poster- und Druckauftrags-Postfach',
-	    'apple@fau.de'		=> 'Offizielle E-Mail-Adresse bei Problemen und Anfragen zum Thema Apple, gem. Gruppe aus Mitarbeitern verschiedener Abteilungen. ',
-	    'virus@rrze.fau.de'		=> 'Alle Anfragen bzgl. Virenvorfällen/Sophos',
-	    'rrze-ftp-admins@fau.de'	=> 'Betreuer von ftp.uni-erlangen.de/ftp.fau.de',
-	    'time@fau.de'		=> 'Öffentliche Zeitserver (ntp0-ntp3)',
-	    'zeiterfassung@fau.de'	=> 'Fragen zu dem Dienst FAU-Zeiterfassung',
-	    'exchange@fau.de'		=> 'Alle Anfragen bzgl. Exchange-Anfragen/-Probleme',
-	    'support-hpc@fau.de'	=> 'Anfragen zum HPC Dienst',
-	    'acl@fau.de'		=> 'ACLs, Firewall, Portfilter, ZUV-Firewall',
-	    'ca@fau.de'			=> 'FAU-CA, Fragen und Termine rund um Zertifikate',
-	    'dhcp@fau.de'		=> 'DHCP-Meldungen',
-	    'dns@fau.de'		=> 'DNS-Meldungen',
-	    'postmaster@fau.de'		=> 'Adresse für Supportanfragen, Fehlermeldungen',
-	    'videoportal@fau.de'	=> 'Videoportal',
-	    'vpn@fau.de'		=> 'VPN Support',
-	    'wlan@fau.de'		=> 'WLAN Support',
-	    'webmaster@fau.de'		=> 'RRZE Webteam',
-	    'rrze-hardware@fau.de'	=> 'offizielle E-Mail-Adresse bei Problemen und Anfragen zum Thema Hardware',
-	    'rrze-software@fau.de'	=> 'Offizielle E-Mail-Adresse bei Problemen und Anfragen zum Thema Software',
-	    'rrze-datenbanken@fau.de'	=> 'Anfragen bzgl. Datenbanken',
-	)
-    ),
-    
-   
-);
-
-
 
 //Field Array
 $custom_meta_fields = array(
@@ -104,7 +47,7 @@ $custom_meta_fields = array(
     ),
 	array(
         'label'=> 'Preis Basisdienstleistungen',
-        'desc'  => '«TODO: sollte hier ein kalkulatorische Preis stehen, wenn die DL für den Nutzer kostenlos ist?»',
+        'desc'  => 'Angabe des Preises oder verweis auf die zentrale Preisübersicht.',
         'id'    => 'preis_basisdienstleistungen',
         'type'  => 'textarea'
     ),
