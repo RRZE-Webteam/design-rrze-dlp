@@ -69,9 +69,6 @@
     p {
 		margin: 5px 0 10px;
 	}
-	address {
-	    white-space: pre;
-	}
 	ul, ol {
 		margin-left: 30px;
 		margin-bottom: 10px;
@@ -105,7 +102,9 @@
 		padding: 10px 0;
 		color: #636269;
 		font-size: 1.1em;
-		font-style: italic;
+	}
+	h4 {
+    	font-size: 1.05em;
 	}
 	a:link,
 	a:visited {
@@ -557,11 +556,6 @@
         position:relative;
     }
 
-    .kontakt ul li {
-	
-    }
-    
-    
     footer.site-footer {
         position:relative;
         padding: 15px;
